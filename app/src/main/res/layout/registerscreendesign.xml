@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/cinemind_test_logo"/>
+        <TextView
+            android:layout_marginTop="150dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="SIGN UP"
+            android:textSize="27dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/emailRegisterText"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textColor="#484848"
+            android:hint="EMAIL"
+            android:textColorHint="#a3a3a3" />
+
+        <EditText
+            android:id="@+id/passwordRegisterText"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:textSize="16dp"
+            android:textColor="#484848"
+            android:gravity="center"
+            android:hint="PASSWORD"
+            android:textColorHint="#a3a3a3"
+            android:inputType="textPassword"/>
+
+
+
+        <Button
+            android:id="@+id/signUpButtonReg"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:text="SIGN UP"
+            android:background="#cc594d"/>
+
+        <Button
+            android:id="@+id/signInButtonReg"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#ffffff"
+            android:textSize="10dp"
+            android:text="ALREADY HAVE AND ACCOUNT? SIGN IN HERE"
+            android:background="#2a96cc"/>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

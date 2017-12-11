@@ -1,0 +1,51 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.ktu.cinemind">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/cinemind_test_logo_withouttext"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <activity android:name=".splashScreen"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".loginScreen"
+            android:theme="@style/SplashTheme" />
+
+        <activity android:name=".registerScreen"
+            android:theme="@style/SplashTheme" />
+
+        <activity android:name=".MainActivity" />
+        <activity android:name=".watchlist" />
+        <activity android:name=".favorites" />
+        <activity android:name=".reminder" />
+        <activity android:name=".movieDetails"/>
+        <activity android:name=".selectedGenreMovies" />
+<!--
+        <receiver android:name="AlarmReceiver"></receiver>
+        -->
+        <service
+            android:name=".myService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+    </application>
+
+</manifest>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Soon"
+            android:id="@+id/nav_soon"
+            android:icon="@drawable/ic_local_movies_black_24dp"
+            android:name="Soon" />
+        <item
+            android:title="My Watchlist"
+            android:id="@+id/nav_watchlist"
+            android:icon="@drawable/ic_eye"
+            android:name="My Watchlish" />
+        <item
+            android:title="My Favorites"
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:name="My Favorites" />
+        <item
+            android:title="Reminder"
+            android:id="@+id/nav_reminder"
+            android:icon="@drawable/ic_alarm_black_24dp"
+            android:name="Reminder" />
+    </group>
+
+    <item android:name="Communicate"
+        android:title="Communicate">
+        <menu>
+            <item
+                android:title="Share"
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:name="Share" />
+            <item
+                android:title="Logout"
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:name="Logout" />
+        </menu>
+    </item>
+
+</menu>

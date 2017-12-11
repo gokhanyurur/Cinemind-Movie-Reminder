@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_bg">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/movieposter"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/noimage2"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginRight="0dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/movieposter"
+        android:layout_alignBottom="@+id/movieposter"
+        android:background="#76000000"/>
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/movieposter"
+        android:layout_alignBottom="@+id/movieposter"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="MOVIE NAME"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/inTheater"
+        android:layout_width="135dp"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="40dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="DATE"
+        android:textColor="#ffffff"
+        android:layout_alignRight="@+id/movieposter"
+        android:layout_alignBottom="@+id/movieposter"/>
+
+
+</RelativeLayout>

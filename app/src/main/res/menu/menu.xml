@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/edu.ktu.cinemind">
+    <item
+        android:title="Search"
+        android:id="@+id/searchImg"
+        android:name="Search"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="always" />
+</menu>

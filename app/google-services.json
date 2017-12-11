@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "482936529253",
+    "firebase_url": "https://cinemind-293e3.firebaseio.com",
+    "project_id": "cinemind-293e3",
+    "storage_bucket": "cinemind-293e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482936529253:android:bd2fc2e8ca4877af",
+        "android_client_info": {
+          "package_name": "edu.ktu.cinemind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482936529253-0kr8mqa6bn0fcou6aqm0d9cd7sesr728.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.ktu.cinemind",
+            "certificate_hash": "2885a606df660c6fab464d7b0611e57747d3bdcc"
+          }
+        },
+        {
+          "client_id": "482936529253-p66ek30rhltroo8vpq08de8rmd2a1h0p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKyhQpGR6bwaAeS4oO1xA9Uys6eL39jEU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482936529253-p66ek30rhltroo8vpq08de8rmd2a1h0p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

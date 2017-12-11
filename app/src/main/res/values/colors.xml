@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color> -->
+    <color name="colorPrimary">#F95F62</color>
+    <color name="colorPrimaryDark">#cc4d50</color>
+    <color name="colorAccent">#f95f62</color>
+    <color name="MainPageMenuBG">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>

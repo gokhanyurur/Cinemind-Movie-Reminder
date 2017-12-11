@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="130dp"
+        android:layout_width="100dp"
+        android:layout_height="125dp"
+        android:background="@drawable/ic_local_movies_black_24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="CINEMIND"
+        android:textSize="40dp"
+        android:textColor="#ffffff"
+        android:paddingTop="0dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="Movie Reminder"
+        android:textSize="16dp"
+        android:textColor="#ffffff"
+        android:paddingTop="0dp"/>
+
+</LinearLayout>
