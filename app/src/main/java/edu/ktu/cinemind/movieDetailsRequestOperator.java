@@ -136,14 +136,14 @@ public class movieDetailsRequestOperator extends Thread {
         post.setCrewList(crewList);
 
         //set videos
-        /*JSONArray videosJsonArray=getJsonVideos(object.getString("videos"));
+        JSONArray videosJsonArray=getJsonVideos(object.getString("videos"));
         List<video> videoList =new ArrayList<>();
         for (int i = 0; i < videosJsonArray.length(); i++) {
             JSONObject jsonobject = videosJsonArray.getJSONObject(i);
             video postcp=parseVideosArray(jsonobject.toString());
             videoList.add(postcp);
         }
-        post.setVideoList(videoList);*/
+        post.setVideoList(videoList);
 
         //set image
         /*JSONArray imagesJsonArray=getJsonImages(object.getString("images"));

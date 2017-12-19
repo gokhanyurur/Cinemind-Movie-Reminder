@@ -27,6 +27,19 @@
                 android:scaleType="centerCrop"
                 />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+                <Button
+                    android:id="@+id/watchTrailer"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/playbuttonyoutube2"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_marginRight="0dp"
@@ -85,7 +98,8 @@
                 android:layout_alignRight="@+id/movieDetailPoster"
                 android:layout_alignBottom="@+id/movieDetailPoster"
                 android:scaleX="1.3"
-                android:scaleY="1.3"/>
+                android:scaleY="1.3"
+                android:soundEffectsEnabled="false"/>
 
             <CheckBox
                 android:id="@+id/setReminderButton"
@@ -241,7 +255,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/movieDesc"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/movieDetailGenres"
@@ -315,11 +331,10 @@
             <ImageView
                 android:id="@+id/ayrac3"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="20dp"
                 android:background="#E8E8E8"
                 android:layout_below="@id/crewListView"
                 />
-
 
         </RelativeLayout>
 

@@ -2,11 +2,15 @@ package edu.ktu.cinemind;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -15,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -46,7 +51,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class movieDetails extends AppCompatActivity implements movieDetailsRequestOperator.RequestOperatorListener{
+public class movieDetails extends AppCompatActivity implements movieDetailsRequestOperator.RequestOperatorListener, YouTubePlayer.OnInitializedListener{
 
     private CheckBox addFavorites,addWatchlist,setReminder;
     private ImageView moviePoster;
@@ -75,6 +80,8 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private ShareActionProvider mShareActionProvider;
 
     private ViewPager viewPager;
+
+    private Button watchTrailer;
 
 
 
@@ -118,11 +125,14 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         castLv=(ListView) findViewById(R.id.castListView);
         crewLv=(ListView) findViewById(R.id.crewListView);
 
-        /*viewPager=(ViewPager) findViewById(R.id.myViewPager);
+        watchTrailer=(Button) findViewById(R.id.watchTrailer);
 
-        mySwipeAdapter mySwipeAdapter = new mySwipeAdapter();
-
-        viewPager.setAdapter(mySwipeAdapter);*/
+        watchTrailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                watchYoutubeVideo(publication.getVideoList().get(0).getKey());
+            }
+        });
 
         castAdapter=new castListAdapter(this,castList);
         crewAdapter=new crewListAdapter(this,crewList);
@@ -182,7 +192,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         else{
             movieRate.setText("-/10");
         }
-
         addFavorites.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
              @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -205,7 +214,10 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                      dbFavorites.child(id).setValue(movie);
 
                      if(!alreadyinFavs){
+                        /* MediaPlayer mpFa = MediaPlayer.create(getApplicationContext(),R.raw.fillingyourinbox);
+                         mpFa.start();*/
                          Toast.makeText(getApplicationContext(), "Movie has been added to your favorites.",Toast.LENGTH_SHORT).show();
+                         //mpFa.seekTo(0);
                      }
                  }else{
                      String id=firebaseAuth.getCurrentUser().getUid();
@@ -223,7 +235,10 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                      movieToSave movie=new movieToSave(id,movie_ids);
                      dbFavorites.child(id).setValue(movie);
 
+                     /*MediaPlayer mpFr = MediaPlayer.create(getApplicationContext(),R.raw.caseclosed);
+                     mpFr.start();*/
                      Toast.makeText(getApplicationContext(), "Movie has been removed from your favorites.",Toast.LENGTH_SHORT).show();
+                     //mpFr.seekTo(0);
                  }
             }
         }
@@ -410,7 +425,16 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
     }
 
-
+    private void watchYoutubeVideo(String id) {
+        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.youtube.com/watch?v=" + id));
+        try {
+            startActivity(appIntent);
+        } catch (ActivityNotFoundException ex) {
+            startActivity(webIntent);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -595,5 +619,19 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     public void failed(int responseCode){
         this.publication=null;
         updatePublication();
+    }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+
+        if(!b){
+            youTubePlayer.cueVideo(publication.getVideoList().get(0).getKey());
+        }
+
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
     }
 }

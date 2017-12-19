@@ -210,22 +210,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.searchbutton, menu);
 
-        /*MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        getMenuInflater().inflate(R.menu.main, menu);
 
-        searchView.setOnQueryTextListener(
-                new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        return false;
-                    }
-                }
-        );*/
         return true;
     }
 
@@ -239,6 +225,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.search_button:
                 Intent myIntent=new Intent(this,searchMovie.class);
                 startActivity(myIntent);
+                break;
+
+            case R.id.action_sort:
+                soonpage.sortSoonPageMovies();
+                //Toast.makeText(context,"Movies are sorted according to release date.",Toast.LENGTH_SHORT);
                 break;
         }
 
@@ -329,10 +320,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 moviesText+=movie.getTitle()+" ("+daysDiff+" days left)\n";
                             }
                             else if(daysDiff==1){
-                                moviesText+=movie.getTitle()+" ("+daysDiff+" day left)\n";
+                                moviesText+=movie.getTitle()+" (Releasing tomorrow)\n";
                             }
                             else if(daysDiff==0){
-                                moviesText+=movie.getTitle()+" ("+daysDiff+" is relasing today.)\n";
+                                moviesText+=movie.getTitle()+" (Releasing today)\n";
                             }
 
                             if(moviesText.length()>0){

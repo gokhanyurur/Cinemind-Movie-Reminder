@@ -90,11 +90,11 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
                         daysDiff+=1;
 
                         if (!publicationsMA.get(i).getPoster_path().equals("null") && daysDiff>1) {
-                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), (daysDiff+" days left"), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), (publicationsMA.get(i).getRelease_date()+(" ("+daysDiff+" days left)")), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
                         }else if (!publicationsMA.get(i).getPoster_path().equals("null") && daysDiff==1) {
-                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), (daysDiff+" day left"), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), (publicationsMA.get(i).getRelease_date()+(" (Tomorrow)")), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
                         }else if (!publicationsMA.get(i).getPoster_path().equals("null") && daysDiff==0) {
-                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), "Releasing today.", publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            jsonMoviesMA.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), (publicationsMA.get(i).getRelease_date()+" (Releasing today)"), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
                         }
                     }
                     mostAntiListView.invalidateViews();

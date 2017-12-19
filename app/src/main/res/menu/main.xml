@@ -2,15 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/edu.ktu.cinemind">
     <item
-        android:title="Test1"
-        android:id="@+id/action_sort1"
+        android:title="Sort Movies"
+        android:id="@+id/action_sort"
         android:orderInCategory="100"
-        android:name="@string/action_logout"
-        app:showAsAction="never" />
-    <item
-        android:title="Test2"
-        android:id="@+id/action_sort2"
-        android:orderInCategory="100"
-        android:name="Test2"
+        android:name="sortMovies"
         app:showAsAction="never" />
 </menu>

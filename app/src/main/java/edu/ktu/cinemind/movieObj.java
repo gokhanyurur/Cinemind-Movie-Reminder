@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class movieObj {
-    private int vote_average,vote_count,id,length;
+    private int vote_average,vote_count,id,length,dayLeft;
     private double popularity;
     private String title,poster_path,original_language,original_title,backdrop_path,overview;
     private String release_date;
@@ -28,7 +28,18 @@ public class movieObj {
     }
 
 
-    public movieObj(int id,String title,String release_date, String poster_path, String backdrop_path, String overview, int vote_average){
+    public movieObj(int id,String title,String release_date,int dayLeft ,String poster_path, String backdrop_path, String overview, int vote_average){
+        this.id=id;
+        this.title=title;
+        this.release_date=release_date;
+        this.poster_path=poster_path;
+        this.backdrop_path=backdrop_path;
+        this.overview=overview;
+        this.vote_average=vote_average;
+        this.dayLeft=dayLeft;
+    }
+
+    public movieObj(int id,String title,String release_date,String poster_path, String backdrop_path, String overview, int vote_average){
         this.id=id;
         this.title=title;
         this.release_date=release_date;
@@ -187,6 +198,13 @@ public class movieObj {
     }
     public void setImageList(List<image> imageList){
         this.imageList=imageList;
+    }
+
+    public void setDayLeft(int dayLeft){
+        this.dayLeft=dayLeft;
+    }
+    public int getDayLeft(){
+        return dayLeft;
     }
 
     public String getStatus(){
