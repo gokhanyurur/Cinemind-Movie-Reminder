@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.NotificationCompat;
@@ -18,11 +17,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,14 +31,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 
@@ -215,9 +208,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /*getMenuInflater().inflate(R.menu.menu, menu);
-        getMenuInflater().inflate(R.menu.main, menu);*/
-        //getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.searchbutton, menu);
+
+        /*MenuItem searchItem = menu.findItem(R.id.menu_item_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                }
+        );*/
         return true;
     }
 
@@ -227,6 +235,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.toolbar) {
             return true;
         }
+        switch (item.getItemId()) {
+            case R.id.search_button:
+                Intent myIntent=new Intent(this,searchMovie.class);
+                startActivity(myIntent);
+                break;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -320,7 +335,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 moviesText+=movie.getTitle()+" ("+daysDiff+" is relasing today.)\n";
                             }
 
-                            createNotification(moviesText);
+                            if(moviesText.length()>0){
+                                createNotification(moviesText);
+                            }
                         }
                     }
                     }

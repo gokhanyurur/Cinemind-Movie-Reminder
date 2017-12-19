@@ -1,10 +1,8 @@
 package edu.ktu.cinemind;
 
 import android.content.Context;
-
 import android.graphics.drawable.Drawable;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
-import javax.sql.DataSource;
 
-
-public class movieListAdapter extends ArrayAdapter<movieObj> {
+public class movieListAdapterMainPage extends ArrayAdapter<movieObj> {
 
     private Context context;
 
 
-    public movieListAdapter(Context context, List<movieObj> objects){
+    public movieListAdapterMainPage(Context context, List<movieObj> objects){
         //super(context, R.layout.movieobjlistitemdesign,objects);
-        super(context, R.layout.movieobjlistitemdesign,objects);
+        super(context, R.layout.movieobjlistitemdesignmainpage,objects);
         this.context=context;
     }
 
@@ -46,18 +39,24 @@ public class movieListAdapter extends ArrayAdapter<movieObj> {
         if(v == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //v=inflater.inflate(R.layout.movieobjlistitemdesign,null);
-            v=inflater.inflate(R.layout.movieobjlistitemdesign,null);
+            v=inflater.inflate(R.layout.movieobjlistitemdesignmainpage,null);
         }
 
         TextView title=(TextView) v.findViewById(R.id.movieTitle);
         TextView releaaseDate =(TextView) v.findViewById(R.id.inTheater);
         ImageView image=(ImageView) v.findViewById(R.id.movieposter);
+        TextView vote_ave=(TextView) v.findViewById(R.id.vote_ave);
 
         movieObj item = getItem(position);
 
         //title.setText(item.getTitle().toUpperCase());
         title.setText(item.getTitle());
         releaaseDate.setText(item.getRelease_date());
+        if(item.getVote_average()==0){
+            vote_ave.setText("NA/10");
+        }else{
+            vote_ave.setText(item.getVote_average()+"/10");
+        }
 
         //String imgPath= "https://image.tmdb.org/t/p/w342"+item.getPoster_path();
         String imgPath= "https://image.tmdb.org/t/p/w500"+item.getPoster_path();
@@ -66,7 +65,7 @@ public class movieListAdapter extends ArrayAdapter<movieObj> {
 
         Picasso.with(context)
                 .load(imgPath)
-                .resize(500, 750) // 255,375 low res
+                .resize(250, 375)
                 .into(image);
 
         return v;

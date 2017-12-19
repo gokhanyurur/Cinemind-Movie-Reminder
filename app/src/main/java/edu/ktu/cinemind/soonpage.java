@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class soonpage extends android.support.v4.app.Fragment implements movieRequestOperator.RequestOperatorListener {
 
     private ListView moviesLv;
-    private movieListAdapter soonAdapter;
+    private movieListAdapterMainPage soonAdapter;
     private List<movieObj> publications = new ArrayList<>();
 
     public static int clickedMovie;
@@ -39,7 +39,7 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
 
 
         moviesLv =(ListView) rootview.findViewById(R.id.soonListView);
-        soonAdapter = new movieListAdapter(rootview.getContext(), jsonMovies);
+        soonAdapter = new movieListAdapterMainPage(rootview.getContext(), jsonMovies);
         moviesLv.setAdapter(soonAdapter);
 
         sendRequest();
@@ -107,13 +107,13 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
 
                         if(!publications.get(i).getPoster_path().equals("null") && daysDiff>1){
                            // jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), (daysDiff+" days left"), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), (publications.get(i).getRelease_date()+(" ("+daysDiff+" days left)")), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                         }
                         else if(!publications.get(i).getPoster_path().equals("null") && daysDiff==1){
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), (daysDiff*-1+" day left"), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), (publications.get(i).getRelease_date()+(" ("+daysDiff*-1+" day left")), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                         }
                         else if(!publications.get(i).getPoster_path().equals("null") && daysDiff==0){
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), "Releasing today.", publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), (publications.get(i).getRelease_date()+" (Releasing today.)"), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                         }
                     }
                     moviesLv.invalidateViews();

@@ -18,7 +18,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
     private ListView moviesLv;
     private List<movieObj> publications = new ArrayList<>();
-    private movieListAdapter soonAdapter;
+    private movieListAdapterMainPage soonAdapter;
     public static List<movieObj> jsonMovies = new ArrayList<>();
 
     public static boolean clickedFromSGM;
@@ -33,7 +33,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
         moviesLv=(ListView) findViewById(R.id.genreMoviesList);
 
-        soonAdapter = new movieListAdapter(this, jsonMovies);
+        soonAdapter = new movieListAdapterMainPage(this, jsonMovies);
         moviesLv.setAdapter(soonAdapter);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);

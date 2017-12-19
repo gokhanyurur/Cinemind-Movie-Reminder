@@ -309,8 +309,7 @@
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:layout_below="@id/crewTitle"
-                android:nestedScrollingEnabled="true"
-                android:layout_marginBottom="20dp">
+                android:nestedScrollingEnabled="true">
             </ListView>
 
             <ImageView

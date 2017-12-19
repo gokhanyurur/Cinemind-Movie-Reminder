@@ -153,6 +153,10 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
             item = movieObj.getMovieByID(reminder.jsonMoviesReminder,soonpage.clickedMovie);
             reminder.clickedFromReminder=false;
         }
+        else if(searchMovie.clickedFromSearch){
+            item = movieObj.getMovieByID(searchMovie.jsonMoviesSearchMovie,soonpage.clickedMovie);
+            searchMovie.clickedFromSearch=false;
+        }
         else{
             item = movieObj.getMovieByID(soonpage.jsonMovies,soonpage.clickedMovie);
         }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_bg">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:id="@+id/movieposter"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/noimage1"
+        android:scaleType="centerCrop" />
+
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/movieposter"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Movie Name"
+        android:textColor="#363636"/>
+
+
+
+    <TextView
+        android:id="@+id/inTheater"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/movieposter"
+        android:layout_below="@id/movieTitle"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="5dp"
+        android:text="In xx Days"
+        android:textColor="#363636"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_marginTop="7.5dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/star"
+        android:layout_below="@id/inTheater"
+        android:id="@+id/starImg"
+        android:layout_toRightOf="@id/movieposter"
+        android:layout_marginLeft="15dp"
+        />
+
+    <TextView
+        android:id="@+id/vote_ave"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="20dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="xx/10"
+        android:textColor="#363636"
+        android:layout_toRightOf="@id/starImg"
+        android:layout_below="@id/inTheater"
+        android:layout_marginTop="5dp"/>
+
+
+</RelativeLayout>

@@ -91,6 +91,8 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         jsonMoviesReminder.clear();
         reminderLv.invalidateViews();
 
+        findViewById(R.id.noMovieSignRem).setVisibility(View.VISIBLE);
+
         dbReminder.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,11 +101,8 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
                         reminderMovies =usersSnapShot.getValue(movieToSave.class);
                         sendRequest(reminderMovies.getMovie_id());
                     }
-                    else{
-                        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                        findViewById(R.id.noMovieSignReminder).setVisibility(View.VISIBLE);
-                    }
                 }
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             }
 
             @Override
@@ -145,7 +144,6 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
             public void run(){
                 if(!publications.isEmpty()){
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                    findViewById(R.id.noMovieSignReminder).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
 
                         String[] releaseDateArray = publications.get(i).getRelease_date().split("-");
@@ -167,10 +165,10 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
 
                        if(daysDiff>0){
                            jsonMoviesReminder.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                           findViewById(R.id.noMovieSignRem).setVisibility(View.GONE);
                        }
                     }
                     reminderLv.invalidateViews();
-                    //createNotification();
                 }
             }
         });
@@ -189,7 +187,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         updatePublication();
     }
 
-    public static void createNotification(){
+    /*public static void createNotification(){
         Date today=new Date();
         Calendar cal=Calendar.getInstance();
         cal.setTime(today);
@@ -217,6 +215,6 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         //System.out.println("Today is "+(cal.get(Calendar.YEAR))+"-"+(cal.get(Calendar.MONTH)+1)+"-"+(cal.get(Calendar.DAY_OF_MONTH)));
 
 
-    }
+    }*/
 
 }

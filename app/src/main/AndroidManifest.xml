@@ -33,6 +33,7 @@
         <activity android:name=".reminder" />
         <activity android:name=".movieDetails"/>
         <activity android:name=".selectedGenreMovies" />
+        <activity android:name=".searchMovie" />
 <!--
         <receiver android:name="AlarmReceiver"></receiver>
         -->

@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class mostanticipated extends android.support.v4.app.Fragment implements  movieRequestOperator.RequestOperatorListener{
 
     private ListView mostAntiListView;
-    private movieListAdapter mostAntiAdapter;
+    private movieListAdapterMainPage mostAntiAdapter;
     private List<movieObj> publicationsMA = new ArrayList<>();
 
     public static List<movieObj> jsonMoviesMA = new ArrayList<>();
@@ -31,7 +31,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
         View rootView = inflater.inflate(R.layout.mostantipagedesign, container, false);
 
         mostAntiListView=(ListView) rootView.findViewById(R.id.mostAntListView);
-        mostAntiAdapter=new movieListAdapter(rootView.getContext(), jsonMoviesMA);
+        mostAntiAdapter=new movieListAdapterMainPage(rootView.getContext(), jsonMoviesMA);
         mostAntiListView.setAdapter(mostAntiAdapter);
 
         jsonMoviesMA.clear();

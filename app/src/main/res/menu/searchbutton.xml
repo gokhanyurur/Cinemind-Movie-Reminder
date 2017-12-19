@@ -5,10 +5,9 @@
     tools:context="com.vvhvb.hesselfeenstra.vvheerenveenseboys.MainActivity">
 
     <item
-        android:id="@+id/menu_item_search"
+        android:id="@+id/search_button"
         android:title="Share"
         android:icon="@drawable/ic_search_white_24dp"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

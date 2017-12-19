@@ -35,7 +35,8 @@ public class movieRequestOperator extends Thread {
         super.run();
         try{
             publications=request(urlToRequest);
-            if(!publications.isEmpty())
+            //if(!publications.isEmpty() || publications.size()>0)
+            if(publications.size()>0)
                 success(publications);
             else
                 failed(responseCode);
