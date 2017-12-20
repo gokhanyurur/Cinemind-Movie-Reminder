@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".splashScreen"
+        <activity android:name=".pages.splashScreen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,29 +21,29 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".loginScreen"
+        <activity android:name=".pages.loginScreen"
             android:theme="@style/SplashTheme" />
 
-        <activity android:name=".registerScreen"
+        <activity android:name=".pages.registerScreen"
             android:theme="@style/SplashTheme" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".watchlist" />
-        <activity android:name=".favorites" />
-        <activity android:name=".reminder" />
-        <activity android:name=".movieDetails"/>
-        <activity android:name=".selectedGenreMovies" />
-        <activity android:name=".searchMovie" />
+        <activity android:name=".pages.watchlist" />
+        <activity android:name=".pages.favorites" />
+        <activity android:name=".pages.reminder" />
+        <activity android:name=".pages.movieDetails"/>
+        <activity android:name=".pages.selectedGenreMovies" />
+        <activity android:name=".pages.searchMovie" />
 <!--
         <receiver android:name="AlarmReceiver"></receiver>
         -->
         <service
-            android:name=".myService"
+            android:name=".services.myService"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name=".services.AlarmReceiver"
             android:enabled="true"
             android:exported="true" />
 

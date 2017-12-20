@@ -37,6 +37,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import edu.ktu.cinemind.adapters.PagerAdapter;
+import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.pages.favorites;
+import edu.ktu.cinemind.pages.loginScreen;
+import edu.ktu.cinemind.pages.reminder;
+import edu.ktu.cinemind.pages.searchMovie;
+import edu.ktu.cinemind.pages.soonpage;
+import edu.ktu.cinemind.pages.watchlist;
+import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,customListMoviesRequestOperator.RequestOperatorListener{
 

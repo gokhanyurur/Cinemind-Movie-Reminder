@@ -6,6 +6,10 @@
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
+    <string name="release_tommorrow">(Tomorrow)</string>
+    <string name="release_today">(Today)</string>
+    <string name="days_left"> days left</string>
+
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Soon</string>
     <string name="nav_photos">My Watchlist</string>
