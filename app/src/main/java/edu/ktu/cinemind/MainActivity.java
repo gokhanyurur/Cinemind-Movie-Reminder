@@ -304,7 +304,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(!publications.isEmpty()){
                     findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
                     for(int i=0;i<publications.size();i++){
-                        jsonMoviesNotification.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                        //if(publications.get(i).getDayLeft()>=0){
+                            jsonMoviesNotification.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                        //}
                     }
                     if(canUpdateNotification){
                         canUpdateNotification=false;
@@ -325,12 +327,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             long msDiff =cal2.getTimeInMillis()-  cal.getInstance().getTimeInMillis();
                             long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
-                            daysDiff+=1;
 
                             if(daysDiff>1){
                                 moviesText+=movie.getTitle()+" ("+daysDiff+" days left)\n";
                             }
-                            else if(daysDiff==1){
+                            else if(daysDiff==0 && (cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH)==1)){
                                 moviesText+=movie.getTitle()+" (Releasing tomorrow)\n";
                             }
                             else if(daysDiff==0){

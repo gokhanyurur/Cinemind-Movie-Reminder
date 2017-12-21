@@ -14,7 +14,7 @@ public class splashScreen extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
        // Intent intent = new Intent(this, MainActivity.class);
-        try {
+       /* try {
             if(isConnected()){
                 Intent intent = new Intent(this, loginScreen.class);
                 startActivity(intent);
@@ -24,7 +24,10 @@ public class splashScreen extends AppCompatActivity{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
+        Intent intent = new Intent(this, loginScreen.class);
+        startActivity(intent);
+        finish();
 
     }
 

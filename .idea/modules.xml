@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Cinemind.iml" filepath="$PROJECT_DIR$/Cinemind.iml" />
+      <module fileurl="file://C:\Users\gokyur\Documents\GitHub\Cinemind-Movie-Reminder\Cinemind.iml" filepath="C:\Users\gokyur\Documents\GitHub\Cinemind-Movie-Reminder\Cinemind.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cinemind-Movie-Reminder.iml" filepath="$PROJECT_DIR$/Cinemind-Movie-Reminder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
