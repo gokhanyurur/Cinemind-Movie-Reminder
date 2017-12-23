@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".pages.welcomeScreen"
+            android:theme="@style/SplashTheme" />
+
         <activity android:name=".pages.loginScreen"
             android:theme="@style/SplashTheme" />
 
