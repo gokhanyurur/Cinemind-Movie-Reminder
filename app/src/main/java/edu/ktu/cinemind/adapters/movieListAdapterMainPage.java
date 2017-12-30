@@ -56,35 +56,24 @@ public class movieListAdapterMainPage extends ArrayAdapter<movieObj> {
         title.setText(item.getTitle());
         releaaseDate.setText(item.getRelease_date());
         if(item.getVote_average()==0){
-            vote_ave.setText("NA/10");
+            vote_ave.setText("NA");
         }else{
-            vote_ave.setText(item.getVote_average()+"/10");
+            vote_ave.setText(String.valueOf(item.getVote_average()));
         }
 
         //String imgPath= "https://image.tmdb.org/t/p/w342"+item.getPoster_path();
         String imgPath= "https://image.tmdb.org/t/p/w500"+item.getPoster_path();
-        Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
-        //image.setImageDrawable(drawable);
 
-        Picasso.with(context)
-                .load(imgPath)
-                .resize(250, 375)
-                .into(image);
-
-        return v;
-    }
-
-    private Drawable LoadImageFromWebOperations(String url) {
-
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            System.out.println("Exc=" + e);
-            return null;
+        if(item.getPoster_path().equals("null")){
+            image.setImageResource(R.drawable.noimage1);
+        }else{
+            Picasso.with(context)
+                    .load(imgPath)
+                    .resize(250, 375)
+                    .into(image);
         }
 
+        return v;
     }
 
 }

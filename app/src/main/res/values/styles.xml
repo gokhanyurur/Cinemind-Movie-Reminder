@@ -1,6 +1,11 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
 
 
 
@@ -13,6 +18,7 @@
     </style>
      <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
          <item name="android:windowBackground">@drawable/background_splash</item>
+         <item name="android:statusBarColor">@color/colorPrimary</item>
      </style>
 
     <style name="MyEditTextTheme">
@@ -20,6 +26,5 @@
         <item name="colorControlNormal">#9e9e9e</item>
         <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
     </style>
-
 
 </resources>

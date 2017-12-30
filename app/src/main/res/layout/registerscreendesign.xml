@@ -36,9 +36,10 @@
                 android:layout_height="40dp"
                 android:textSize="16dp"
                 android:textColor="#ffffff"
-                android:hint="example@mail.com"
+                android:hint=" example@mail.com"
                 android:textColorHint="#b6b6b6"
-                android:theme="@style/MyEditTextTheme"/>
+                android:theme="@style/MyEditTextTheme"
+                android:drawableLeft="@drawable/ic_email_black_24dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,10 +53,12 @@
                 android:layout_height="40dp"
                 android:textSize="16dp"
                 android:textColor="#ffffff"
-                android:hint="*********"
+                android:hint=" *********"
                 android:textColorHint="#b6b6b6"
                 android:inputType="textPassword"
-                android:theme="@style/MyEditTextTheme"/>
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="13dp"
+                android:drawableLeft="@drawable/ic_lock" />
 
             <Button
                 android:id="@+id/signUpButtonReg"

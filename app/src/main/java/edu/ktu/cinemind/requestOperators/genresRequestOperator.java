@@ -50,7 +50,6 @@ public class genresRequestOperator extends Thread {
 
     private List<genreObj> request(String url) throws IOException, JSONException {
 
-        //String myURL="https://api.themoviedb.org/3/movie/upcoming?api_key=a092bd16da64915723b2521295da3254&region=US&sort_by=release_date.asc&page=1";
         URL obj = new URL(url);
 
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -60,7 +59,6 @@ public class genresRequestOperator extends Thread {
         con.setRequestProperty("Content-Type", "application/json");
 
         responseCode = con.getResponseCode();
-        //System.out.println("Response Code: "+ responseCode);
 
         InputStreamReader streamReader;
 
@@ -78,8 +76,6 @@ public class genresRequestOperator extends Thread {
             response.append(inputLine);
         }
         in.close();
-
-        //System.out.println(response.toString().substring(11, response.toString().length()-1));
 
         if(responseCode == 200){
            return getResultJsonObj(response.toString());

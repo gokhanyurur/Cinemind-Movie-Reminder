@@ -25,11 +25,19 @@ public class welcomeScreen extends AppCompatActivity implements View.OnClickList
     private Button signIn,signUp;
     private Context context = this;
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcomescreendesign);
 
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() !=null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
 
         signIn=(Button) findViewById(R.id.signInWelcome);
         signUp=(Button) findViewById(R.id.signUpWelcome);

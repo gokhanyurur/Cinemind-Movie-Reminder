@@ -27,7 +27,6 @@ public class movieListAdapter extends ArrayAdapter<movieObj> {
 
 
     public movieListAdapter(Context context, List<movieObj> objects){
-        //super(context, R.layout.movieobjlistitemdesign,objects);
         super(context, R.layout.movieobjlistitemdesign,objects);
         this.context=context;
     }
@@ -58,8 +57,6 @@ public class movieListAdapter extends ArrayAdapter<movieObj> {
 
         //String imgPath= "https://image.tmdb.org/t/p/w342"+item.getPoster_path();
         String imgPath= "https://image.tmdb.org/t/p/w500"+item.getPoster_path();
-        Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
-        //image.setImageDrawable(drawable);
 
         Picasso.with(context)
                 .load(imgPath)
@@ -67,19 +64,6 @@ public class movieListAdapter extends ArrayAdapter<movieObj> {
                 .into(image);
 
         return v;
-    }
-
-    private Drawable LoadImageFromWebOperations(String url) {
-
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            System.out.println("Exc=" + e);
-            return null;
-        }
-
     }
 
 }

@@ -64,7 +64,6 @@ public class movieDetailsRequestOperator extends Thread {
         con.setRequestProperty("Content-Type", "application/json");
 
         responseCode = con.getResponseCode();
-        //System.out.println("Response Code: "+ responseCode);
 
         InputStreamReader streamReader;
 

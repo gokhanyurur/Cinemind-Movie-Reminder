@@ -52,17 +52,24 @@ public class castListAdapter extends ArrayAdapter<cast> {
         roleAs.setText(person.getCharacter());
 
         String imgPath= "https://image.tmdb.org/t/p/w92"+person.getImagePath();
-        Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
+        //Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
         //image.setImageDrawable(drawable);
 
-        Glide.with(context)
-                .load(imgPath)
-                .into(image);
+        if(person.getImagePath().equals("null")){
+            Glide.with(context)
+                    .load("http://mariabiju.com/wp-content/themes/bazar/core/assets/images/no-featured-175.jpg")
+                    .into(image);
+        }
+        else{
+            Glide.with(context)
+                    .load(imgPath)
+                    .into(image);
+        }
 
         return v;
     }
 
-    private Drawable LoadImageFromWebOperations(String url) {
+    /*private Drawable LoadImageFromWebOperations(String url) {
 
         try {
             InputStream is = (InputStream) new URL(url).getContent();
@@ -73,7 +80,7 @@ public class castListAdapter extends ArrayAdapter<cast> {
             return null;
         }
 
-    }
+    }*/
 
 }
 

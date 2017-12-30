@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,11 +34,13 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
     public static int clickedMovie;
     public static List<movieObj> jsonMovies = new ArrayList<>();
 
+    private List<movieObj> nextPageJsonMovies = new ArrayList<>();
+
     Context thiscontext;
 
-    public static boolean sorted=false;
+    public static boolean sorted=false,loadingMore=false;
 
-    private int queryStartPage=2;
+    private int queryCurrentPage =2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,40 +48,49 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
 
         thiscontext=container.getContext();
 
-
         jsonMovies.clear();
-
+        nextPageJsonMovies.clear();
+        publications.clear();
 
         moviesLv =(ListView) rootview.findViewById(R.id.soonListView);
         soonAdapter = new movieListAdapterMainPage(rootview.getContext(), jsonMovies);
         moviesLv.setAdapter(soonAdapter);
 
-        sendRequest(String.valueOf(queryStartPage));
-
-        /*for(int i=2;i<=13;i++){
-            queryStartPage++;
-            if(queryStartPage<=13){
-                sendRequest(String.valueOf(queryStartPage));
-            }
-            sendRequest(String.valueOf(i));
-        }*/
-
         moviesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //System.out.println(jsonMoviesMA.get(i).getId()+" is clicked");
                 goToMovieDetails(jsonMovies.get(i).getId());
 
             }
         });
 
-        /*SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(thiscontext);
-        String text = app_preferences.getString("")*/
+        moviesLv.setOnScrollListener(new AbsListView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
-        //loadingPanel=(RelativeLayout) rootview.findViewById(R.id.loadingPanel);
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
 
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+                if((lastInScreen == totalItemCount) && !loadingMore){
+                    loadingMore=true;
+                    queryCurrentPage++;
+                    sendRequest(String.valueOf(queryCurrentPage));
+                }
+            }
+        });
 
         return rootview;
+    }
+
+    public void addListItemToAdapter(List<movieObj> list){
+        jsonMovies.addAll(list);
+        moviesLv.invalidateViews();
+        soonAdapter.notifyDataSetChanged();
+        nextPageJsonMovies.removeAll(nextPageJsonMovies);
+        publications.removeAll(publications);
+        loadingMore=false;
     }
 
     private void goToMovieDetails(int movieId){
@@ -92,14 +107,11 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
 
     }
 
-
-
     public void updatePublication(){
         getActivity().runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                //System.out.println(publications.get(1));
-                if(!publications.isEmpty()){
+                if(publications!=null && !publications.isEmpty()){
                     getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
 
@@ -113,7 +125,6 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(today);
 
-                        //Date release = new GregorianCalendar(year, month, day).getTime();
                         Calendar cal2 = Calendar.getInstance();
                         cal2.set(year, month - 1, day, 0, 0);
 
@@ -123,19 +134,19 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
                         publications.get(i).setDayLeft((int)daysDiff);
 
                         if(daysDiff>1){
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" ("+publications.get(i).getDayLeft()+" days left)", publications.get(i).getDayLeft() ,publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" ("+publications.get(i).getDayLeft()+" days left)", publications.get(i).getDayLeft() ,publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
 
                         }
                         else if(daysDiff==0 && (cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH)==1)){
                             daysDiff=cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH);
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Tomorrow)", (int)daysDiff, publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Tomorrow)", (int)daysDiff, publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                         }
                         else if(daysDiff==0){
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Today)" , publications.get(i).getDayLeft(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Today)" , publications.get(i).getDayLeft(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                         }
 
                     }
-                    moviesLv.invalidateViews();
+                    addListItemToAdapter(nextPageJsonMovies);
                 }
                 else{
                     // do nothing

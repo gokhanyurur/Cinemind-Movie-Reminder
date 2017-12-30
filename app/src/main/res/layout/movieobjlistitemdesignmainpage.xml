@@ -26,7 +26,6 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:text="Movie Name"
         android:textColor="#363636"/>
 
@@ -34,7 +33,7 @@
 
     <TextView
         android:id="@+id/inTheater"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/movieposter"
         android:layout_below="@id/movieTitle"
@@ -44,13 +43,12 @@
         android:layout_marginTop="5dp"
         android:text="In xx Days"
         android:textColor="#363636"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textSize="15sp" />
 
     <ImageView
-        android:layout_marginTop="7.5dp"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="@drawable/star"
         android:layout_below="@id/inTheater"
         android:id="@+id/starImg"
@@ -60,16 +58,25 @@
 
     <TextView
         android:id="@+id/vote_ave"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:paddingLeft="5dp"
-        android:paddingRight="20dp"
         android:textSize="15sp"
-        android:textStyle="bold"
-        android:text="xx/10"
+        android:text="xx"
         android:textColor="#363636"
         android:layout_toRightOf="@id/starImg"
+        android:layout_below="@id/inTheater"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingRight="20dp"
+        android:textSize="15sp"
+        android:text="/10"
+        android:textColor="#363636"
+        android:layout_toRightOf="@id/vote_ave"
         android:layout_below="@id/inTheater"
         android:layout_marginTop="5dp"/>
 

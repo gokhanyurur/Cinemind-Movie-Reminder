@@ -185,34 +185,4 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         updatePublication();
     }
 
-    /*public static void createNotification(){
-        Date today=new Date();
-        Calendar cal=Calendar.getInstance();
-        cal.setTime(today);
-        for(movieObj movie:jsonMoviesReminder){
-            //System.out.print(movie.getTitle()+" is set to remind.Release date is ");
-            String[] releaseDateArray=movie.getRelease_date().split("-");
-            //System.out.println("Year:"+releaseDateArray[0]+" Month:"+releaseDateArray[1]+" Day:"+releaseDateArray[2]);
-
-            int year=Integer.parseInt(releaseDateArray[0]);
-            int month=Integer.parseInt(releaseDateArray[1]);
-            int day=Integer.parseInt(releaseDateArray[2]);
-
-            int dayLeft=((year-cal.get(Calendar.YEAR))*365)+((month-cal.get(Calendar.MONTH)-1)*31)+((day-cal.get(Calendar.DAY_OF_MONTH)));
-            if(dayLeft==10 || dayLeft==5){
-                String message=dayLeft+" days left to release of "+movie.getTitle();
-            }
-            else if(dayLeft==1){
-                System.out.println(dayLeft+" day left to release of "+movie.getTitle());
-            }
-            else if(dayLeft<=0){
-                System.out.println(movie.getTitle()+" is released.");
-            }
-        }
-
-        //System.out.println("Today is "+(cal.get(Calendar.YEAR))+"-"+(cal.get(Calendar.MONTH)+1)+"-"+(cal.get(Calendar.DAY_OF_MONTH)));
-
-
-    }*/
-
 }

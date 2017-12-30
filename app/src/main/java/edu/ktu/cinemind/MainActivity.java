@@ -260,9 +260,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id){
             case R.id.nav_soon:
-                newAct = new Intent(getApplicationContext(), MainActivity.class);
                 drawer.closeDrawer(GravityCompat.START);
-                //startActivity(newAct);
                 break;
             case R.id.nav_watchlist:
                 newAct = new Intent(getApplicationContext(), watchlist.class);

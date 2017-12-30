@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class movieObj {
-    private int vote_average,vote_count,id,length,dayLeft;
-    private double popularity;
+    private int vote_count,id,length,dayLeft;
+    private double popularity,vote_average;
     private String title,poster_path,original_language,original_title,backdrop_path,overview;
     private String release_date;
     private boolean adult,video;
@@ -28,7 +28,7 @@ public class movieObj {
     }
 
 
-    public movieObj(int id,String title,String release_date,int dayLeft ,String poster_path, String backdrop_path, String overview, int vote_average){
+    public movieObj(int id,String title,String release_date,int dayLeft ,String poster_path, String backdrop_path, String overview, double vote_average){
         this.id=id;
         this.title=title;
         this.release_date=release_date;
@@ -39,7 +39,7 @@ public class movieObj {
         this.dayLeft=dayLeft;
     }
 
-    public movieObj(int id,String title,String release_date,String poster_path, String backdrop_path, String overview, int vote_average){
+    public movieObj(int id,String title,String release_date,String poster_path, String backdrop_path, String overview, double vote_average){
         this.id=id;
         this.title=title;
         this.release_date=release_date;
@@ -50,7 +50,7 @@ public class movieObj {
     }
 
 
-    public movieObj(int vote_count, int id, boolean video,int vote_average, String title, double popularity, String poster_path, String original_language, String original_title,List<genreObj> genres,String backdrop_path, boolean adult,String overview,String release_date){
+    public movieObj(int vote_count, int id, boolean video,double vote_average, String title, double popularity, String poster_path, String original_language, String original_title,List<genreObj> genres,String backdrop_path, boolean adult,String overview,String release_date){
         this.vote_count=vote_count;
         this.id=id;
         this.video=video;
@@ -88,10 +88,10 @@ public class movieObj {
         this.video=video;
     }
 
-    public int getVote_average(){
+    public double getVote_average(){
         return vote_average;
     }
-    public void setVote_average(int vote_average){
+    public void setVote_average(double vote_average){
         this.vote_average=vote_average;
     }
 

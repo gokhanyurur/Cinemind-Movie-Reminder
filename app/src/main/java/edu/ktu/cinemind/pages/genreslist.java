@@ -71,7 +71,6 @@ public class genreslist extends android.support.v4.app.Fragment implements genre
         getActivity().runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                //System.out.println(publications.get(1));
                 if(!publicationsGenre.isEmpty()){
                     getActivity().findViewById(R.id.loadingPanelGenreList).setVisibility(View.GONE);
                     for(int i=0;i<publicationsGenre.size();i++){

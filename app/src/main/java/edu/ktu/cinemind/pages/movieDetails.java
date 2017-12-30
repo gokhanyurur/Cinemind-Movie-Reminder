@@ -181,8 +181,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         String imgPath= "https://image.tmdb.org/t/p/w780"+item.getBackdrop_path();
         //String imgPath= "https://image.tmdb.org/t/p/w300"+item.getBackdrop_path();
-        Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
-        //moviePoster.setImageDrawable(drawable);
 
         Glide.with(getApplicationContext())
                 .load(imgPath)
@@ -507,19 +505,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         return super.onOptionsItemSelected(item);
     }
 
-    private Drawable LoadImageFromWebOperations(String url) {
-
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            System.out.println("Exc=" + e);
-            return null;
-        }
-
-    }
-
     private void sendRequest(){
         movieDetailsRequestOperator.urlToRequest="https://api.themoviedb.org/3/movie/"+soonpage.clickedMovie+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,image";
         movieDetailsRequestOperator ro= new movieDetailsRequestOperator();
@@ -551,7 +536,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
                     long msDiff =cal2.getTimeInMillis()-  cal.getInstance().getTimeInMillis();
                     long daysDiff = TimeUnit.MILLISECONDS.toDays(msDiff);
-                    daysDiff+=1;
 
                     if(daysDiff<=0){
                         //this movie is already released you cant set reminder for it
