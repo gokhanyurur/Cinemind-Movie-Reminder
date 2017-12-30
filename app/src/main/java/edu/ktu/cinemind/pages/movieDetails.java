@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,6 +45,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import edu.ktu.cinemind.adapters.ViewPagerAdapter;
 import edu.ktu.cinemind.services.AlarmReceiver;
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapters.castListAdapter;
@@ -60,7 +62,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private CheckBox addFavorites,addWatchlist,setReminder;
     private ImageView moviePoster;
     private TextView movieName,movieDirector,movieLength,movieRate,movieReleaseDate, movieOverview, movieGenres;
-    private movieObj publication;
+    public static movieObj publication; //onceden private di
 
     private ListView castLv,crewLv;
     private castListAdapter castAdapter;
@@ -84,6 +86,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private ShareActionProvider mShareActionProvider;
 
     private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
 
     private Button watchTrailer;
 
@@ -130,6 +133,8 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         crewLv=(ListView) findViewById(R.id.crewListView);
 
         watchTrailer=(Button) findViewById(R.id.watchTrailer);
+
+
 
         watchTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -506,7 +511,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     }
 
     private void sendRequest(){
-        movieDetailsRequestOperator.urlToRequest="https://api.themoviedb.org/3/movie/"+soonpage.clickedMovie+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,image";
+        movieDetailsRequestOperator.urlToRequest="https://api.themoviedb.org/3/movie/"+soonpage.clickedMovie+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,images";
         movieDetailsRequestOperator ro= new movieDetailsRequestOperator();
         ro.setListener(this);
         ro.start();
@@ -519,7 +524,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
             public void run(){
                 if(publication!=null){
                     movieReleaseDate.setText(publication.getRelease_date());
-
 
                     String[] releaseDateArray = publication.getRelease_date().split("-");
 
@@ -584,16 +588,40 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                     }
                     crewLv.invalidateViews();
 
-                    /*for(int i =0;i<publication.getImagesList().size();i++){
-                        mySwipeAdapter.images.add(publication.getImagesList().get(i).getFilePath());
-                    }*/
+                    if(publication.getVideoList().isEmpty() || publication.getVideoList()==null){
+                        watchTrailer.setVisibility(View.INVISIBLE);
+                    }
+
+                    final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+                    int pixels = (int) (240 * scale + 0.5f);
+
+                    if(publication.getCrewList()!=null && !publication.getCrewList().isEmpty()){
+                        ViewGroup.LayoutParams params = crewLv.getLayoutParams();
+                        params.height = pixels;
+                        crewLv.setLayoutParams(params);
+                    }
+                    if(publication.getCastList()!=null && !publication.getCastList().isEmpty()){
+                        ViewGroup.LayoutParams params = castLv.getLayoutParams();
+                        params.height = pixels;
+                        castLv.setLayoutParams(params);
+                    }
+
+                    fillViewPager();
                 }
                 else{
-                    // do nothing
+
                 }
             }
         });
 
+    }
+
+    public void fillViewPager(){
+        ViewPagerAdapter.images=publication.getImagesList();
+        viewPager = (ViewPager) findViewById(R.id.myViewPager);
+        viewPager.setPageMargin(0);
+        viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager.setAdapter(viewPagerAdapter);
     }
 
 

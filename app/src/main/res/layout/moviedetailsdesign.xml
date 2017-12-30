@@ -25,6 +25,7 @@
                 android:layout_height="200dp"
                 android:background="@drawable/noimage2"
                 android:scaleType="centerCrop"
+                android:layout_marginBottom="7dp"
                 />
 
             <RelativeLayout
@@ -35,7 +36,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:background="@drawable/playbuttonyoutube2"
+                    android:background="@drawable/playbutton1"
                     android:layout_centerInParent="true"
                     android:layout_centerVertical="true" />
             </RelativeLayout>
@@ -72,7 +73,7 @@
                 android:paddingLeft="20dp"
                 android:textSize="10sp"
                 android:textStyle="bold"
-                android:text="by Director Name"
+                android:text="by #unknown"
                 android:textColor="#ffffff" />
 
 
@@ -140,7 +141,7 @@
                         android:id="@+id/movieDetailReleaseDate"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:text="Release Date"
+                        android:text="#unknowndate"
                         android:layout_marginLeft="3dp"
                         android:textColor="@color/black"
                         android:textSize="15dp"
@@ -153,7 +154,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="0dp"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:gravity="center">
@@ -167,7 +168,7 @@
                         android:id="@+id/movieDetailLength"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Run time"
+                        android:text="#unknown"
                         android:textSize="15dp"
                         android:layout_marginLeft="3dp"
                         android:textColor="@color/black"
@@ -180,7 +181,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="horizontal"
                     android:gravity="right"
                     android:layout_gravity="right">
@@ -194,7 +195,7 @@
                         android:id="@+id/movieDetailRate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rate/10"
+                        android:text="-/10"
                         android:textSize="15dp"
                         android:textColor="@color/black"
                         android:layout_marginLeft="3dp"
@@ -230,7 +231,7 @@
                     android:id="@+id/movieOverview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="This is movie description"
+                    android:text="#unknown"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:textColor="@color/black"
@@ -268,7 +269,7 @@
                     android:textSize="16dp"
                     android:textColor="#000000"
                     android:textAlignment="center"
-                    android:text="Genres"/>
+                    android:text="#unknown"/>
 
 
             </LinearLayout>
@@ -277,9 +278,45 @@
             <ImageView
                 android:id="@+id/ayrac2"
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/genresLayout"
+                android:background="#E8E8E8" />
+
+
+            <LinearLayout
+                android:id="@+id/movieImagesLinear"
+                android:layout_below="@id/ayrac2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/imagesTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="IMAGES"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="25dp"
+                    android:paddingBottom="20dp" />
+
+                <android.support.v4.view.ViewPager
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myViewPager" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ayrac3"
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
                 android:background="#E8E8E8"
-                android:layout_below="@id/genresLayout"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/movieImagesLinear"
                 />
 
             <TextView
@@ -293,17 +330,26 @@
                 android:paddingTop="15dp"
                 android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
-                android:layout_below="@id/ayrac2"/>
+                android:layout_below="@id/ayrac3"/>
 
             <ListView
                 android:id="@+id/castListView"
                 android:layout_width="wrap_content"
-                android:layout_height="240dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/castTitle"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:nestedScrollingEnabled="true">
             </ListView>
+
+            <ImageView
+                android:id="@+id/ayrac4"
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="#E8E8E8"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/castListView"
+                />
 
             <TextView
                 android:id="@+id/crewTitle"
@@ -316,20 +362,21 @@
                 android:paddingTop="25dp"
                 android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
-                android:layout_below="@id/castListView"/>
+                android:layout_below="@id/ayrac4"/>
 
             <ListView
                 android:id="@+id/crewListView"
                 android:layout_width="wrap_content"
-                android:layout_height="240dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/crewTitle"
+                android:nestedScrollingEnabled="true"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
-                android:layout_below="@id/crewTitle"
-                android:nestedScrollingEnabled="true">
-            </ListView>
+                android:layout_marginBottom="10dp"></ListView>
 
             <ImageView
-                android:id="@+id/ayrac3"
+                android:id="@+id/ayrac5"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="#E8E8E8"

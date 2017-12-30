@@ -53,8 +53,6 @@ public class crewListAdapter extends ArrayAdapter<crew> {
         job.setText(person.getJob());
 
         String imgPath= "https://image.tmdb.org/t/p/w92"+person.getImagePath();
-        //Drawable drawable = LoadImageFromWebOperations(imgPath.toString());
-        //image.setImageDrawable(drawable);
 
         if(person.getImagePath().equals("null")){
             Glide.with(context)
@@ -70,18 +68,6 @@ public class crewListAdapter extends ArrayAdapter<crew> {
         return v;
     }
 
-    /*private Drawable LoadImageFromWebOperations(String url) {
-
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            System.out.println("Exc=" + e);
-            return null;
-        }
-
-    }*/
 
 }
 

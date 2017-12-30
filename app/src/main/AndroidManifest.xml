@@ -14,7 +14,8 @@
 
         <activity
             android:name=".pages.splashScreen"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,21 +24,31 @@
         </activity>
 
         <activity android:name=".pages.welcomeScreen"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".pages.loginScreen"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".pages.registerScreen"
-            android:theme="@style/SplashTheme" />
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".pages.watchlist" />
-        <activity android:name=".pages.favorites" />
-        <activity android:name=".pages.reminder" />
-        <activity android:name=".pages.movieDetails"/>
-        <activity android:name=".pages.selectedGenreMovies" />
-        <activity android:name=".pages.searchMovie" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.watchlist"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.favorites"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.reminder"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.movieDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.selectedGenreMovies"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".pages.searchMovie"
+            android:screenOrientation="portrait"/>
 <!--
         <receiver android:name="AlarmReceiver"></receiver>
         -->

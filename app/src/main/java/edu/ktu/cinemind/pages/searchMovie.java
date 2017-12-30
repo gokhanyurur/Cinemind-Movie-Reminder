@@ -45,7 +45,7 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Search Movie");
+        setTitle("SEARCH MOVIE");
 
         setContentView(R.layout.searchmoviedesign);
 

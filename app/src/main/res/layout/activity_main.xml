@@ -15,7 +15,7 @@
         android:layout_height="match_parent"/>
 
 
-    <include layout="@layout/mainactivitydesign" />
+    <include layout="@layout/mainactivitydesign"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

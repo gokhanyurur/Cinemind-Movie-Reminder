@@ -151,15 +151,15 @@ public class movieDetailsRequestOperator extends Thread {
         }
         post.setVideoList(videoList);
 
-        //set image
-        /*JSONArray imagesJsonArray=getJsonImages(object.getString("images"));
+        //set images backdrops
+        JSONArray imagesJsonArray=getJsonImages(object.getString("images"));
         List<image> imageList =new ArrayList<>();
         for (int i = 0; i < imagesJsonArray.length(); i++) {
             JSONObject jsonobject = imagesJsonArray.getJSONObject(i);
             image postcp=parseImagesArray(jsonobject.toString());
             imageList.add(postcp);
         }
-        post.setImageList(imageList);*/
+        post.setImageList(imageList);
 
         return post;
     }
@@ -219,6 +219,7 @@ public class movieDetailsRequestOperator extends Thread {
     }
 
     private image parseImagesArray(String response) throws  JSONException{
+
         JSONObject object=new JSONObject(response);
         image movieImage= new image();
 
