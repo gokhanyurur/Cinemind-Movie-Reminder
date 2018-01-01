@@ -378,9 +378,36 @@
             <ImageView
                 android:id="@+id/ayrac5"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="13dp"
                 android:background="#E8E8E8"
                 android:layout_below="@id/crewListView"
+                />
+
+            <TextView
+                android:id="@+id/recMovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RECOMMENDED MOVIES"
+                android:textSize="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:paddingTop="15dp"
+                android:paddingLeft="25dp"
+                android:paddingBottom="10dp"
+                android:layout_below="@id/ayrac5"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_below="@id/recMovieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myRecyclerView"/>
+
+            <ImageView
+                android:id="@+id/ayrac6"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:background="#E8E8E8"
+                android:layout_below="@id/myRecyclerView"
                 />
 
         </RelativeLayout>

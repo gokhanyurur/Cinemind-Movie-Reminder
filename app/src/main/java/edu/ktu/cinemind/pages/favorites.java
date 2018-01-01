@@ -63,6 +63,8 @@ public class favorites extends AppCompatActivity implements customListMoviesRequ
         firebaseAuth=FirebaseAuth.getInstance();
         dbFavorites= FirebaseDatabase.getInstance().getReference("Favorites");
 
+        findViewById(R.id.noMovieSignFav).setVisibility(View.GONE);
+
 
        /* dbFavorites.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,13 +156,15 @@ public class favorites extends AppCompatActivity implements customListMoviesRequ
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                if(!publications.isEmpty()){
+                if(!publications.isEmpty() && publications!=null){
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     findViewById(R.id.noMovieSignFav).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
                         jsonMoviesFavs.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                     }
                     favoritesLv.invalidateViews();
+                }else{
+                    findViewById(R.id.noMovieSignFav).setVisibility(View.VISIBLE);
                 }
             }
         });

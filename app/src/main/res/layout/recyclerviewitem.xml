@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listview_bg">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="225dp"
+        android:id="@+id/recMovieposter"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/noimage1"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/recMovieTitle"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/recMovieposter"
+        android:layout_marginTop="5dp"
+        android:textSize="14sp"
+        android:text="Movie Name"
+        android:textAlignment="center"
+        android:textColor="#363636"/>
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recMovieTitle"
+        android:paddingLeft="20dp">
+<!--
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/star"
+            android:id="@+id/starImg"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:id="@+id/recVote_ave"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            android:textSize="14sp"
+            android:text="xx"
+            android:textColor="#363636"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="/10"
+            android:textColor="#363636"
+            android:layout_marginTop="5dp"/>
+            -->
+    </LinearLayout>
+
+</RelativeLayout>

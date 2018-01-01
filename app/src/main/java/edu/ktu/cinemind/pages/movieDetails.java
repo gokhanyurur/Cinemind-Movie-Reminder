@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,10 +44,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import edu.ktu.cinemind.adapters.ViewPagerAdapter;
+import edu.ktu.cinemind.adapters.recommendedMovieAdapter;
+import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 import edu.ktu.cinemind.services.AlarmReceiver;
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapters.castListAdapter;
@@ -55,14 +63,15 @@ import edu.ktu.cinemind.objects.cast;
 import edu.ktu.cinemind.objects.crew;
 import edu.ktu.cinemind.objects.movieObj;
 import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.services.RecyclerItemClickListener;
 
 
-public class movieDetails extends AppCompatActivity implements movieDetailsRequestOperator.RequestOperatorListener, YouTubePlayer.OnInitializedListener{
+public class movieDetails extends AppCompatActivity implements movieDetailsRequestOperator.RequestOperatorListener, YouTubePlayer.OnInitializedListener, movieRequestOperator.RequestOperatorListener{
 
     private CheckBox addFavorites,addWatchlist,setReminder;
     private ImageView moviePoster;
     private TextView movieName,movieDirector,movieLength,movieRate,movieReleaseDate, movieOverview, movieGenres;
-    public static movieObj publication; //onceden private di
+    private movieObj publication; //onceden private di
 
     private ListView castLv,crewLv;
     private castListAdapter castAdapter;
@@ -90,11 +99,20 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
     private Button watchTrailer;
 
+    private RecyclerView recyclerView;
+    private List<movieObj> recMovies=new ArrayList<>();
+    private List<movieObj> publications = new ArrayList<>();
+    private recommendedMovieAdapter recMoviesAdapter;
 
+    private movieObj movieWithDetails;
+
+    private boolean gotDetails=false,gotRecommendedMovies=false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
+        recMovies.removeAll(recMovies);
 
         sendRequest();
 
@@ -134,8 +152,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         watchTrailer=(Button) findViewById(R.id.watchTrailer);
 
-
-
         watchTrailer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +165,27 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         castLv.setAdapter(castAdapter);
         crewLv.setAdapter(crewAdapter);
 
+        recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+        recMoviesAdapter=new recommendedMovieAdapter(recMovies);
+        recyclerView.setAdapter(recMoviesAdapter);
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        searchMovie.clickedFromSearch=true;
+                        searchMovie.jsonMoviesSearchMovie=recMovies;
+                        soonpage.clickedMovie=recMovies.get(position).getId();
+                        Intent myintent=new Intent(getApplicationContext(),movieDetails.class);
+                        startActivity(myintent);
+                        finish();
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+
+                    }
+                })
+        );
 
         movieObj item;
 
@@ -182,7 +219,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         movieName.setText(item.getTitle());
         setTitle(item.getTitle().toUpperCase());
-        //movieReleaseDate.setText(item.getRelease_date());
 
         String imgPath= "https://image.tmdb.org/t/p/w780"+item.getBackdrop_path();
         //String imgPath= "https://image.tmdb.org/t/p/w300"+item.getBackdrop_path();
@@ -191,7 +227,6 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                 .load(imgPath)
                 .into(moviePoster);
 
-        movieOverview.setText(item.getOverview());
 
         if(item.getVote_average()>0){
             movieRate.setText(item.getVote_average()+"/10");
@@ -467,6 +502,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         alarmIntent = new Intent(movieDetails.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(movieDetails.this, publication.getId(), alarmIntent, 0);
+        //pendingIntent = PendingIntent.getBroadcast(movieDetails.this, soonpage.clickedMovie, alarmIntent, 0);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),pendingIntent);
@@ -483,6 +519,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         alarmIntent = new Intent(movieDetails.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(movieDetails.this, publication.getId(), alarmIntent, 0);
+        //pendingIntent = PendingIntent.getBroadcast(movieDetails.this, soonpage.clickedMovie, alarmIntent, 0);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.cancel(pendingIntent);
@@ -500,6 +537,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                 Intent myIntent=new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
                 String shareTitle=publication.getTitle()+"\n"+"https://www.themoviedb.org/movie/"+publication.getId()+"\n\n"+"Shared with Cinemind";
+                //String shareTitle=movieName.getText()+"\n"+"https://www.themoviedb.org/movie/"+soonpage.clickedMovie+"\n\n"+"Shared with Cinemind";
                 //String shareDesc="Cinemind";
                 //myIntent.putExtra(Intent.EXTRA_SUBJECT,shareDesc);
                 myIntent.putExtra(Intent.EXTRA_TEXT,shareTitle);
@@ -511,18 +549,26 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     }
 
     private void sendRequest(){
+        gotDetails=true;
         movieDetailsRequestOperator.urlToRequest="https://api.themoviedb.org/3/movie/"+soonpage.clickedMovie+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,images";
         movieDetailsRequestOperator ro= new movieDetailsRequestOperator();
         ro.setListener(this);
         ro.start();
+    }
 
+    private void recommendedMoviesRequest(){
+        gotRecommendedMovies=true;
+        movieRequestOperator.urlToRequest="https://api.themoviedb.org/3/movie/"+soonpage.clickedMovie+"/recommendations?api_key=a092bd16da64915723b2521295da3254&language=en-US&page=1";
+        movieRequestOperator ro= new movieRequestOperator();
+        ro.setListener(this);
+        ro.start();
     }
 
     public void updatePublication(){
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                if(publication!=null){
+                if(publication!=null && gotDetails && !gotRecommendedMovies){
                     movieReleaseDate.setText(publication.getRelease_date());
 
                     String[] releaseDateArray = publication.getRelease_date().split("-");
@@ -561,6 +607,8 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                             genresOfMovie+=publication.getGenres().get(i).getTitle().toString()+" • ";
                         }
                     }
+
+                    movieOverview.setText(publication.getOverview());
 
                     movieGenres.setText(genresOfMovie);
 
@@ -607,9 +655,27 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                     }
 
                     fillViewPager();
+                    recommendedMoviesRequest();
                 }
                 else{
 
+                }
+
+                if(publications!=null && !publications.isEmpty() && gotDetails && gotRecommendedMovies){
+                    for(int i=0;i<publications.size();i++){
+                        recMovies.add(new movieObj(publications.get(i).getId(),publications.get(i).getTitle(),publications.get(i).getRelease_date(),publications.get(i).getPoster_path()));
+                        recMovies.get(i).setBackdrop_path(publications.get(i).getBackdrop_path());
+                        //System.out.println(publications.get(i).getTitle()+" is recommended. from movie details.");
+                    }
+                    final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
+                    int pixels = (int) (350 * scale + 0.5f);
+
+                    ViewGroup.LayoutParams params = viewPager.getLayoutParams();
+                    params.height = pixels;
+                    viewPager.setLayoutParams(params);
+                    recMoviesAdapter.notifyDataSetChanged();
+                }
+                else{
                 }
             }
         });
@@ -632,8 +698,15 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     }
 
     @Override
+    public void success(List<movieObj> publications) {
+        this.publications=publications;
+        updatePublication();
+    }
+
+    @Override
     public void failed(int responseCode){
-        this.publication=null;
+        this.publications=null;
+        //this.publication=null;
         updatePublication();
     }
 

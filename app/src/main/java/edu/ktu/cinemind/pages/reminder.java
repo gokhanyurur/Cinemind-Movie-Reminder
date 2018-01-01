@@ -52,6 +52,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         setTitle("Reminder");
 
         setContentView(R.layout.reminderdesign);
+        findViewById(R.id.noMovieSignRem).setVisibility(View.GONE);
 
         context=this;
 
@@ -78,6 +79,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
 
         reminderAdapter =new movieListAdapter(this, jsonMoviesReminder);
         reminderLv.setAdapter(reminderAdapter);
+
 
 
     }
@@ -140,7 +142,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                if(!publications.isEmpty()){
+                if(!publications.isEmpty() && publications!=null){
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
 
@@ -167,6 +169,9 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
                        }
                     }
                     reminderLv.invalidateViews();
+                }
+                else{
+                    findViewById(R.id.noMovieSignRem).setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -48,6 +48,7 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
         setTitle("My Watchlist");
 
         setContentView(R.layout.watchlistdesign);
+        findViewById(R.id.noMovieSignWL).setVisibility(View.GONE);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -137,13 +138,15 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                if(!publications.isEmpty()){
+                if(!publications.isEmpty() && publications!=null){
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     findViewById(R.id.noMovieSignWL).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++) {
                         jsonMoviesWatchlist.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(), publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
                     }
                     WatchlistLv.invalidateViews();
+                }else{
+                    findViewById(R.id.noMovieSignWL).setVisibility(View.VISIBLE);
                 }
 
             }

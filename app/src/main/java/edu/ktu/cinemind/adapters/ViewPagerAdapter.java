@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,6 @@ public class ViewPagerAdapter extends android.support.v4.view.PagerAdapter{
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.movieimagesitem, null);
         ImageView imageView = (ImageView) view.findViewById(R.id.movieImages);
-       // imageView.setImageResource(); //use picasso to show images
 
         String imgPath= "https://image.tmdb.org/t/p/w500"+images.get(position).getFilePath();
 
