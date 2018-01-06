@@ -60,6 +60,25 @@
                 android:paddingBottom="13dp"
                 android:drawableLeft="@drawable/ic_lock" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="15dp"
+                android:text="CONFIRM PASSWORD"/>
+            <EditText
+                android:id="@+id/confirmPWRegisterText"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="16dp"
+                android:textColor="#ffffff"
+                android:hint=" *********"
+                android:textColorHint="#b6b6b6"
+                android:inputType="textPassword"
+                android:theme="@style/MyEditTextTheme"
+                android:paddingBottom="13dp"
+                android:drawableLeft="@drawable/ic_lock" />
+
             <Button
                 android:id="@+id/signUpButtonReg"
                 android:layout_width="match_parent"

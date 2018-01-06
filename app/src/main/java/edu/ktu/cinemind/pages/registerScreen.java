@@ -23,7 +23,7 @@ import edu.ktu.cinemind.R;
 public class registerScreen extends AppCompatActivity implements View.OnClickListener{
 
     private Button signIn,signUp;
-    private EditText password,email;
+    private EditText password,email,confirmpw;
     private Context context = this;
 
     private ProgressDialog progressDialog;
@@ -47,6 +47,7 @@ public class registerScreen extends AppCompatActivity implements View.OnClickLis
         signUp=(Button) findViewById(R.id.signUpButtonReg);
         password=(EditText) findViewById(R.id.passwordRegisterText);
         email=(EditText) findViewById(R.id.emailRegisterText);
+        confirmpw=(EditText) findViewById(R.id.confirmPWRegisterText);
 
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
@@ -56,6 +57,7 @@ public class registerScreen extends AppCompatActivity implements View.OnClickLis
     private void registerUser(){
         String userEmail = email.getText().toString().trim();
         String userPass = password.getText().toString().trim();
+        String confirmpass = confirmpw.getText().toString().trim();
 
         if(TextUtils.isEmpty(userEmail)){
             Toast.makeText(context,"Email can not be empty.", Toast.LENGTH_LONG).show();
@@ -63,6 +65,10 @@ public class registerScreen extends AppCompatActivity implements View.OnClickLis
         }
         if(TextUtils.isEmpty(userPass)){
             Toast.makeText(context,"Password can not be empty.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(!userPass.equals(confirmpass)){
+            Toast.makeText(context,"Passwords must be match.", Toast.LENGTH_LONG).show();
             return;
         }
 
