@@ -6,10 +6,10 @@
 
     <item>
         <bitmap
-            android:width="10dp"
-            android:height="10dp"
+            android:width="1dp"
+            android:height="1dp"
             android:gravity="center"
-            android:src="@drawable/cinemind_test_logo"/>
+            android:src="@drawable/cinemindlogo_lowres"/>
     </item>
 
 </layer-list>

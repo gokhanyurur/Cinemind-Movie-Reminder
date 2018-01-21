@@ -47,7 +47,7 @@ public class myService extends Service {
                 .setContentText(dayLeft)*/
                 .setAutoCancel(true)
                 .setSound(alarmSound)
-                .setSmallIcon(R.drawable.cinemind_test_logo_withouttext);
+                .setSmallIcon(R.drawable.cinemindlogo_lowres);
         notificationManager.notify(100,builder.build());
     }
 

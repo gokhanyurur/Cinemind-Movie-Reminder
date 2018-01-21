@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.cinemind_test_logo_withouttext)
+                .setSmallIcon(R.drawable.cinemindlogo_lowres)
                 //.setTicker("Hearty365")
                 .setContentTitle("Movies you set alarm are approaching")
                 .setContentText("To view expand the notification.")

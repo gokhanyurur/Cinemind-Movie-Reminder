@@ -39,7 +39,8 @@
                 android:hint=" example@mail.com"
                 android:textColorHint="#b6b6b6"
                 android:theme="@style/MyEditTextTheme"
-                android:drawableLeft="@drawable/ic_email_black_24dp" />
+                android:drawableLeft="@drawable/ic_email_black_24dp"
+                android:inputType="textNoSuggestions"/>
 
             <TextView
                 android:layout_width="wrap_content"

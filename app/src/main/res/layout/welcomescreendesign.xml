@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:id="@+id/cinemindLogo"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -21,7 +21,7 @@
         <ImageView
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:background="@drawable/cinemind_test_logo_withouttext" />
+            android:background="@drawable/cinemindlogo" />
 
         <TextView
             android:layout_marginTop="5dp"
