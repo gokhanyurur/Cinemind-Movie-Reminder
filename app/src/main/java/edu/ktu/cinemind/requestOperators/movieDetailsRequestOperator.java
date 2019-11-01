@@ -110,7 +110,7 @@ public class movieDetailsRequestOperator extends Thread {
 
         post.setRelease_date(object.getString("release_date"));
 
-        post.setLength(object.getInt("runtime"));
+        post.setLength(object.optInt("runtime"));
 
         JSONArray genresJsonArray =object.getJSONArray("genres");
         List<genreObj> genres =new ArrayList<>();
