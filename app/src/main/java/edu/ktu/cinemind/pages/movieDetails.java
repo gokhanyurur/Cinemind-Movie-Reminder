@@ -71,7 +71,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private CheckBox addFavorites,addWatchlist,setReminder;
     private ImageView moviePoster;
     private TextView movieName,movieDirector,movieLength,movieRate,movieReleaseDate, movieOverview, movieGenres;
-    private movieObj publication; //onceden private di
+    private movieObj publication;
 
     private ListView castLv,crewLv;
     private castListAdapter castAdapter;
@@ -169,6 +169,11 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         recMoviesAdapter=new recommendedMovieAdapter(recMovies);
         recyclerView.setAdapter(recMoviesAdapter);
+
+        if (recMovies.isEmpty()) {
+            View recMoviesTitleView = findViewById(R.id.recMovieTitle);
+            recMoviesTitleView.setVisibility(View.GONE);
+        }
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -656,6 +661,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
                     fillViewPager();
                     recommendedMoviesRequest();
+
                 }
                 else{
 
@@ -674,6 +680,11 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                     params.height = pixels;
                     viewPager.setLayoutParams(params);
                     recMoviesAdapter.notifyDataSetChanged();
+
+                    if (!recMovies.isEmpty()) {
+                        View recMoviesTitleView = findViewById(R.id.recMovieTitle);
+                        recMoviesTitleView.setVisibility(View.VISIBLE);
+                    }
                 }
                 else{
                 }
@@ -688,6 +699,10 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
         viewPager.setPageMargin(0);
         viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
+        if (publication.getImagesList().isEmpty()) {
+            View imagesView = findViewById(R.id.movieImagesLinear);
+            imagesView.setVisibility(View.GONE);
+        }
     }
 
 

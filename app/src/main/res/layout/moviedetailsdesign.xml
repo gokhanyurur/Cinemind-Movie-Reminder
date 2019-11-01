@@ -121,16 +121,13 @@
                 android:layout_below="@id/movieDetailPoster"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="horizontal"
-                    android:layout_gravity="left"
-                    android:gravity="left">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -154,10 +151,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -177,14 +171,11 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:orientation="horizontal"
-                    android:gravity="right"
-                    android:layout_gravity="right">
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -198,10 +189,7 @@
                         android:text="-/10"
                         android:textSize="15dp"
                         android:textColor="@color/black"
-                        android:layout_marginLeft="3dp"
-                        android:gravity="right"
-                        android:layout_gravity="right"
-                        />
+                        android:layout_marginLeft="3dp"/>
 
                 </LinearLayout>
 
@@ -209,20 +197,19 @@
 
 
             <ImageView
-                android:id="@+id/ayrac1"
+                android:id="@+id/divider1"
                 android:layout_width="match_parent"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_height="1dp"
                 android:background="#d7d7d7"
-                android:layout_below="@id/rel_len_rate"
-                />
+                android:layout_below="@id/rel_len_rate"/>
 
             <LinearLayout
                 android:id="@+id/movieDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ayrac1"
+                android:layout_below="@id/divider1"
                 android:paddingTop="10dp"
                 android:orientation="horizontal">
 
@@ -276,17 +263,17 @@
 
 
             <ImageView
-                android:id="@+id/ayrac2"
+                android:id="@+id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="13dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/genresLayout"
-                android:background="#E8E8E8" />
+                android:background="#E8E8E8"/>
 
 
             <LinearLayout
                 android:id="@+id/movieImagesLinear"
-                android:layout_below="@id/ayrac2"
+                android:layout_below="@id/divider2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -306,16 +293,16 @@
                 <android.support.v4.view.ViewPager
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/myViewPager" />
+                    android:id="@+id/myViewPager"
+                    android:paddingBottom="15dp"/>
 
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/ayrac3"
+                android:id="@+id/divider3"
                 android:layout_width="match_parent"
                 android:layout_height="13dp"
                 android:background="#E8E8E8"
-                android:layout_marginTop="15dp"
                 android:layout_below="@id/movieImagesLinear"
                 />
 
@@ -330,7 +317,7 @@
                 android:paddingTop="15dp"
                 android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
-                android:layout_below="@id/ayrac3"/>
+                android:layout_below="@id/divider3"/>
 
             <ListView
                 android:id="@+id/castListView"
@@ -343,7 +330,7 @@
             </ListView>
 
             <ImageView
-                android:id="@+id/ayrac4"
+                android:id="@+id/divider4"
                 android:layout_width="match_parent"
                 android:layout_height="13dp"
                 android:background="#E8E8E8"
@@ -362,7 +349,7 @@
                 android:paddingTop="25dp"
                 android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
-                android:layout_below="@id/ayrac4"/>
+                android:layout_below="@id/divider4"/>
 
             <ListView
                 android:id="@+id/crewListView"
@@ -373,15 +360,14 @@
                 android:nestedScrollingEnabled="true"
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
-                android:layout_marginBottom="10dp"></ListView>
+                android:layout_marginBottom="10dp"/>
 
             <ImageView
-                android:id="@+id/ayrac5"
+                android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="13dp"
                 android:background="#E8E8E8"
-                android:layout_below="@id/crewListView"
-                />
+                android:layout_below="@id/crewListView"/>
 
             <TextView
                 android:id="@+id/recMovieTitle"
@@ -394,7 +380,7 @@
                 android:paddingTop="15dp"
                 android:paddingLeft="25dp"
                 android:paddingBottom="10dp"
-                android:layout_below="@id/ayrac5"/>
+                android:layout_below="@id/divider5"/>
 
             <android.support.v7.widget.RecyclerView
                 android:layout_below="@id/recMovieTitle"
@@ -403,12 +389,11 @@
                 android:id="@+id/myRecyclerView"/>
 
             <ImageView
-                android:id="@+id/ayrac6"
+                android:id="@+id/divider6"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="#E8E8E8"
-                android:layout_below="@id/myRecyclerView"
-                />
+                android:layout_below="@id/myRecyclerView"/>
 
         </RelativeLayout>
 
