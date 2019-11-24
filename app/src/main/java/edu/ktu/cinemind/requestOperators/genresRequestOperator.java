@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ktu.cinemind.objects.genreObj;
+import edu.ktu.cinemind.entity.genreObj;
 
 public class genresRequestOperator extends Thread {
 

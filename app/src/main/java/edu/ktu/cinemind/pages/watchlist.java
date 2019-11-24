@@ -22,15 +22,15 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
-import edu.ktu.cinemind.adapters.movieListAdapter;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.adapter.MovieListAdapter;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.movieToSave;
 
 
 public class watchlist extends AppCompatActivity implements customListMoviesRequestOperator.RequestOperatorListener {
 
     ListView WatchlistLv;
-    private movieListAdapter watchlistAdapter;
+    private MovieListAdapter watchlistAdapter;
 
     public static List<movieObj> jsonMoviesWatchlist = new ArrayList<>();
     public static boolean clickedFromWatchlist;
@@ -73,7 +73,7 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
             }
         });
 
-        watchlistAdapter =new movieListAdapter(this, jsonMoviesWatchlist);
+        watchlistAdapter =new MovieListAdapter(this, jsonMoviesWatchlist);
         WatchlistLv.setAdapter(watchlistAdapter);
 
     }

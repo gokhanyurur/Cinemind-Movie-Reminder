@@ -1,4 +1,4 @@
-package edu.ktu.cinemind.objects;
+package edu.ktu.cinemind.entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;

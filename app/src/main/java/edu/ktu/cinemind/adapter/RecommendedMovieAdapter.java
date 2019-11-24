@@ -1,30 +1,43 @@
-package edu.ktu.cinemind.adapters;
+package edu.ktu.cinemind.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.config.PropertyReader;
+import edu.ktu.cinemind.entity.movieObj;
 
-public class recommendedMovieAdapter extends RecyclerView.Adapter<recommendedMovieAdapter.HorizontalViewHolder>{
+/**
+ * The type Recommended movie adapter.
+ */
+public class RecommendedMovieAdapter extends RecyclerView.Adapter<RecommendedMovieAdapter.HorizontalViewHolder>{
 
-    private List<movieObj> items;
+    /**
+     * The Movies.
+     */
+    private List<movieObj> movies;
 
+    /**
+     * The Context.
+     */
     public Context context;
 
-    public recommendedMovieAdapter(List<movieObj> items){
-        this.items=items;
+    /**
+     * Instantiates a new Recommended movie adapter.
+     *
+     * @param movies the movies
+     */
+    public RecommendedMovieAdapter(List<movieObj> movies){
+        this.movies =movies;
     }
 
     @Override
@@ -36,32 +49,45 @@ public class recommendedMovieAdapter extends RecyclerView.Adapter<recommendedMov
 
     @Override
     public void onBindViewHolder(HorizontalViewHolder holder, int position) {
-        holder.movieTitle.setText(items.get(position).getTitle());
-       // holder.voteAvg.setText(String.valueOf(items.get(position).getVote_average()));
+        holder.movieTitle.setText(movies.get(position).getTitle());
 
-        System.out.println(items.get(position).getTitle()+" s vote is "+items.get(position).getVote_average());
-
-        String imgPath="https://image.tmdb.org/t/p/w500"+items.get(position).getPoster_path();
+        String imgPath = PropertyReader.getProperty("movie.poster.prefix", context) + movies.get(position).getPoster_path();
 
         Picasso.with(holder.moviePoster.getContext())
                 .load(imgPath)
-                .resize(500, 750) // 255,375 low res
+                .resize(500, 750)
                 .into(holder.moviePoster);
 
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return movies.size();
     }
 
+    /**
+     * The type Horizontal view holder.
+     */
     public class HorizontalViewHolder extends RecyclerView.ViewHolder{
-        TextView movieTitle,voteAvg;
-        ImageView moviePoster;
+
+        /**
+         * The Movie title.
+         */
+        private TextView movieTitle;
+
+        /**
+         * The Movie poster.
+         */
+        private ImageView moviePoster;
+
+        /**
+         * Instantiates a new Horizontal view holder.
+         *
+         * @param itemView the item view
+         */
         public HorizontalViewHolder(View itemView){
             super(itemView);
             movieTitle= itemView.findViewById(R.id.recMovieTitle);
-            //voteAvg=itemView.findViewById(R.id.recVote_ave);
             moviePoster=itemView.findViewById(R.id.recMovieposter);
         }
     }

@@ -1,4 +1,4 @@
-package edu.ktu.cinemind.objects;
+package edu.ktu.cinemind.entity;
 
 public class image {
     private float aspect_ratio;

@@ -12,15 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.genreListAdapter;
-import edu.ktu.cinemind.objects.genreObj;
+import edu.ktu.cinemind.adapter.GenreListAdapter;
+import edu.ktu.cinemind.entity.genreObj;
 import edu.ktu.cinemind.requestOperators.genresRequestOperator;
 
 
 public class genreslist extends android.support.v4.app.Fragment implements genresRequestOperator.RequestOperatorListener {
 
     private ListView genresLv;
-    private genreListAdapter genresAdapter;
+    private GenreListAdapter genresAdapter;
     public static List<genreObj> genres = new ArrayList<>();
     public static int clickedGenre;
     public static String clickedGenreText;
@@ -36,7 +36,7 @@ public class genreslist extends android.support.v4.app.Fragment implements genre
         genresLv =(ListView) rootView.findViewById(R.id.genresListView);
 
 
-        genresAdapter = new genreListAdapter(rootView.getContext(), genres);
+        genresAdapter = new GenreListAdapter(rootView.getContext(), genres);
         genresLv.setAdapter(genresAdapter);
 
         sendRequest();

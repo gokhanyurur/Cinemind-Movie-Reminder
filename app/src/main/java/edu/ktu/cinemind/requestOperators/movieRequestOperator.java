@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.entity.movieObj;
 
 public class movieRequestOperator extends Thread {
 
@@ -154,11 +154,14 @@ public class movieRequestOperator extends Thread {
         JSONObject object=new JSONObject(response);
         movieObj post = new movieObj();
 
+        // TODO add check before request by the key.
         post.setId(object.optInt("id", 0));
 
         post.setTitle(object.getString("title"));
 
-        post.setRelease_date(object.getString("release_date"));
+        if (object.has("release_date")) {
+            post.setRelease_date(object.getString("release_date"));
+        }
 
         post.setPoster_path(object.getString("poster_path"));
 

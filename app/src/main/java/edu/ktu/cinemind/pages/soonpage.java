@@ -10,9 +10,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,15 +17,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.movieListAdapterMainPage;
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
+import edu.ktu.cinemind.entity.movieObj;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
 public class soonpage extends android.support.v4.app.Fragment implements movieRequestOperator.RequestOperatorListener {
 
     private static ListView moviesLv;
-    private movieListAdapterMainPage soonAdapter;
+    private MovieListAdapterMainPage soonAdapter;
     private List<movieObj> publications = new ArrayList<>();
 
     public static int clickedMovie;
@@ -53,7 +50,7 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
         publications.clear();
 
         moviesLv =(ListView) rootview.findViewById(R.id.soonListView);
-        soonAdapter = new movieListAdapterMainPage(rootview.getContext(), jsonMovies);
+        soonAdapter = new MovieListAdapterMainPage(rootview.getContext(), jsonMovies);
         moviesLv.setAdapter(soonAdapter);
 
         moviesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {

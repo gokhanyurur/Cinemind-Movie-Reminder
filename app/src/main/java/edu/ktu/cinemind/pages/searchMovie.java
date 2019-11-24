@@ -20,15 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.movieListAdapterMainPage;
+import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.entity.movieObj;
 
 
 public class searchMovie extends AppCompatActivity implements movieRequestOperator.RequestOperatorListener {
 
     ListView searchLv;
-    private movieListAdapterMainPage searchListAdapter;
+    private MovieListAdapterMainPage searchListAdapter;
 
     public static List<movieObj> jsonMoviesSearchMovie = new ArrayList<>();
     public static boolean clickedFromSearch;
@@ -71,7 +71,7 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
             }
         });
 
-        searchListAdapter =new movieListAdapterMainPage(this, jsonMoviesSearchMovie);
+        searchListAdapter =new MovieListAdapterMainPage(this, jsonMoviesSearchMovie);
         searchLv.setAdapter(searchListAdapter);
 
 

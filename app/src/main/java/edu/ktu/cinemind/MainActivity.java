@@ -37,9 +37,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import edu.ktu.cinemind.adapters.PagerAdapter;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.adapter.PagerAdapter;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.movieToSave;
 import edu.ktu.cinemind.pages.favorites;
 import edu.ktu.cinemind.pages.loginScreen;
 import edu.ktu.cinemind.pages.reminder;
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         runOnUiThread(new Runnable(){
             @Override
             public void run(){
-                if(!publications.isEmpty()){
+                if(publications!= null && !publications.isEmpty()){
                     findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
                     for(int i=0;i<publications.size();i++){
                         //if(publications.get(i).getDayLeft()>=0){

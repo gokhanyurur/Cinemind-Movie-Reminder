@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,32 +36,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
-import edu.ktu.cinemind.adapters.ViewPagerAdapter;
-import edu.ktu.cinemind.adapters.recommendedMovieAdapter;
+import edu.ktu.cinemind.adapter.ViewPagerAdapter;
+import edu.ktu.cinemind.adapter.RecommendedMovieAdapter;
+import edu.ktu.cinemind.entity.Cast;
+import edu.ktu.cinemind.entity.Crew;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 import edu.ktu.cinemind.services.AlarmReceiver;
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.castListAdapter;
-import edu.ktu.cinemind.adapters.crewListAdapter;
+import edu.ktu.cinemind.adapter.CastListAdapter;
+import edu.ktu.cinemind.adapter.CrewListAdapter;
 import edu.ktu.cinemind.requestOperators.movieDetailsRequestOperator;
-import edu.ktu.cinemind.objects.cast;
-import edu.ktu.cinemind.objects.crew;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.movieToSave;
 import edu.ktu.cinemind.services.RecyclerItemClickListener;
 
 
@@ -74,10 +67,10 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private movieObj publication;
 
     private ListView castLv,crewLv;
-    private castListAdapter castAdapter;
-    private crewListAdapter crewAdapter;
-    private List<crew> crewList=new ArrayList<>();
-    private List<cast> castList=new ArrayList<>();
+    private CastListAdapter castAdapter;
+    private CrewListAdapter crewAdapter;
+    private List<Crew> crewList=new ArrayList<>();
+    private List<Cast> castList=new ArrayList<>();
 
     private List<movieToSave> favoriteMovies=new ArrayList<>();
     private List<movieToSave> watchlistMovies=new ArrayList<>();
@@ -102,7 +95,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private RecyclerView recyclerView;
     private List<movieObj> recMovies=new ArrayList<>();
     private List<movieObj> publications = new ArrayList<>();
-    private recommendedMovieAdapter recMoviesAdapter;
+    private RecommendedMovieAdapter recMoviesAdapter;
 
     private movieObj movieWithDetails;
 
@@ -159,15 +152,15 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
             }
         });
 
-        castAdapter=new castListAdapter(this,castList);
-        crewAdapter=new crewListAdapter(this,crewList);
+        castAdapter=new CastListAdapter(this,castList);
+        crewAdapter=new CrewListAdapter(this,crewList);
 
         castLv.setAdapter(castAdapter);
         crewLv.setAdapter(crewAdapter);
 
         recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-        recMoviesAdapter=new recommendedMovieAdapter(recMovies);
+        recMoviesAdapter=new RecommendedMovieAdapter(recMovies);
         recyclerView.setAdapter(recMoviesAdapter);
 
         if (recMovies.isEmpty()) {
@@ -630,14 +623,16 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
                     movieDirector.setText("By "+director);
 
+                    castList.clear();
                     for(int i=0;i<publication.getCastList().size();i++){
-                        castList.add(new cast(publication.getCastList().get(i).getId(), publication.getCastList().get(i).getName(), publication.getCastList().get(i).getImagePath(), publication.getCastList().get(i).getCharacter()));
+                        castList.add(new Cast(publication.getCastList().get(i).getId(), publication.getCastList().get(i).getName(), publication.getCastList().get(i).getImagePath(), publication.getCastList().get(i).getCharacter()));
                     }
                     castLv.invalidateViews();
 
 
+                    // TODO crew list and cast list duplicates results.
                     for(int i=0;i<publication.getCrewList().size();i++){
-                        crewList.add(new crew(publication.getCrewList().get(i).getId(), publication.getCrewList().get(i).getName(), publication.getCrewList().get(i).getImagePath(), publication.getCrewList().get(i).getDepartment(),publication.getCrewList().get(i).getJob()));
+                        crewList.add(new Crew(publication.getCrewList().get(i).getId(), publication.getCrewList().get(i).getName(), publication.getCrewList().get(i).getImagePath(), publication.getCrewList().get(i).getDepartment(),publication.getCrewList().get(i).getJob()));
                     }
                     crewLv.invalidateViews();
 

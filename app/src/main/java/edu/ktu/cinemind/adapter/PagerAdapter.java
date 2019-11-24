@@ -1,4 +1,4 @@
-package edu.ktu.cinemind.adapters;
+package edu.ktu.cinemind.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,12 +8,25 @@ import edu.ktu.cinemind.pages.genreslist;
 import edu.ktu.cinemind.pages.mostanticipated;
 import edu.ktu.cinemind.pages.soonpage;
 
+/**
+ * The type Pager adapter.
+ */
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
 
+    /**
+     * The number of tabs.
+     */
+    private int numberOfTabs;
+
+    /**
+     * Instantiates a new Pager adapter.
+     *
+     * @param fm        the fm
+     * @param NumOfTabs the num of tabs
+     */
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
+        this.numberOfTabs = NumOfTabs;
     }
 
     @Override
@@ -21,14 +34,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                genreslist tab1 = new genreslist();
-                return tab1;
+                return new genreslist();
             case 1:
-                soonpage tab2 = new soonpage();
-                return tab2;
+                return new soonpage();
             case 2:
-                mostanticipated tab3 = new mostanticipated();
-                return tab3;
+                return new mostanticipated();
             default:
                 return null;
         }
@@ -36,6 +46,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return numberOfTabs;
     }
 }

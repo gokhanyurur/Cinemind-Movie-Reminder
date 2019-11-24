@@ -22,15 +22,15 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
-import edu.ktu.cinemind.adapters.movieListAdapter;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.adapter.MovieListAdapter;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.movieToSave;
 
 
 public class favorites extends AppCompatActivity implements customListMoviesRequestOperator.RequestOperatorListener {
 
     ListView favoritesLv;
-    private movieListAdapter favoritesAdapter;
+    private MovieListAdapter favoritesAdapter;
 
     public static List<movieObj> jsonMoviesFavs = new ArrayList<>();
     public static boolean clickedFromFavs;
@@ -91,7 +91,7 @@ public class favorites extends AppCompatActivity implements customListMoviesRequ
             }
         });
 
-        favoritesAdapter=new movieListAdapter(this, jsonMoviesFavs);
+        favoritesAdapter=new MovieListAdapter(this, jsonMoviesFavs);
         favoritesLv.setAdapter(favoritesAdapter);
 
     }

@@ -1,4 +1,4 @@
-package edu.ktu.cinemind.objects;
+package edu.ktu.cinemind.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ public class movieObj {
     private String release_date;
     private boolean adult,video;
     private List<genreObj> genres=new ArrayList<>();
-    private List<cast> castList=new ArrayList<>();
-    private List<crew> crewList=new ArrayList<>();
+    private List<Cast> castList=new ArrayList<>();
+    private List<Crew> crewList=new ArrayList<>();
     private List<video> videoList=new ArrayList<>();
     private List<image> imageList=new ArrayList<>();
     private String status;
@@ -172,17 +172,17 @@ public class movieObj {
         this.length=length;
     }
 
-    public List<cast> getCastList(){
+    public List<Cast> getCastList(){
         return castList;
     }
-    public void setCastList(List<cast> castList){
+    public void setCastList(List<Cast> castList){
         this.castList=castList;
     }
 
-    public List<crew> getCrewList()    {
+    public List<Crew> getCrewList()    {
         return crewList;
     }
-    public void setCrewList(List<crew> crewList){
+    public void setCrewList(List<Crew> crewList){
         this.crewList=crewList;
     }
 

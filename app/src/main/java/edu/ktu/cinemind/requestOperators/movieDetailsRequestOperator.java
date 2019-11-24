@@ -12,12 +12,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ktu.cinemind.objects.cast;
-import edu.ktu.cinemind.objects.crew;
-import edu.ktu.cinemind.objects.genreObj;
-import edu.ktu.cinemind.objects.image;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.video;
+import edu.ktu.cinemind.entity.Cast;
+import edu.ktu.cinemind.entity.Crew;
+import edu.ktu.cinemind.entity.genreObj;
+import edu.ktu.cinemind.entity.image;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.video;
 
 public class movieDetailsRequestOperator extends Thread {
 
@@ -121,22 +121,22 @@ public class movieDetailsRequestOperator extends Thread {
         }
         post.setGenres(genres);
 
-        //set cast
+        //set Cast
         JSONArray castJsonArray=getJsonCast(object.getString("credits"));
-        List<cast> castList =new ArrayList<>();
+        List<Cast> castList =new ArrayList<>();
         for (int i = 0; i < castJsonArray.length(); i++) {
             JSONObject jsonobject = castJsonArray.getJSONObject(i);
-            cast postcp=parseCastArray(jsonobject.toString());
+            Cast postcp=parseCastArray(jsonobject.toString());
             castList.add(postcp);
         }
         post.setCastList(castList);
 
-        //set crew
+        //set Crew
         JSONArray crewJsonArray=getJsonCrew(object.getString("credits"));
-        List<crew> crewList =new ArrayList<>();
+        List<Crew> crewList =new ArrayList<>();
         for (int i = 0; i < crewJsonArray.length(); i++) {
             JSONObject jsonobject = crewJsonArray.getJSONObject(i);
-            crew postcp=parseCrewArray(jsonobject.toString());
+            Crew postcp=parseCrewArray(jsonobject.toString());
             crewList.add(postcp);
         }
         post.setCrewList(crewList);
@@ -170,9 +170,9 @@ public class movieDetailsRequestOperator extends Thread {
         return castArray;
     }
 
-    private cast parseCastArray(String response) throws  JSONException{
+    private Cast parseCastArray(String response) throws  JSONException{
         JSONObject object=new JSONObject(response);
-        cast person= new cast();
+        Cast person= new Cast();
 
         person.setId(object.optInt("id"));
         person.setName(object.getString("name"));
@@ -232,9 +232,9 @@ public class movieDetailsRequestOperator extends Thread {
 
     }
 
-    private crew parseCrewArray(String response) throws  JSONException{
+    private Crew parseCrewArray(String response) throws  JSONException{
         JSONObject object=new JSONObject(response);
-        crew person= new crew();
+        Crew person= new Crew();
 
         person.setId(object.optInt("id"));
         person.setName(object.getString("name"));

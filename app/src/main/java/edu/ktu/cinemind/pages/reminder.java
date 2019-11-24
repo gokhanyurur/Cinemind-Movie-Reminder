@@ -26,15 +26,15 @@ import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
-import edu.ktu.cinemind.adapters.movieListAdapter;
-import edu.ktu.cinemind.objects.movieObj;
-import edu.ktu.cinemind.objects.movieToSave;
+import edu.ktu.cinemind.adapter.MovieListAdapter;
+import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.movieToSave;
 
 
 public class reminder extends AppCompatActivity implements customListMoviesRequestOperator.RequestOperatorListener {
 
     ListView reminderLv;
-    private movieListAdapter reminderAdapter;
+    private MovieListAdapter reminderAdapter;
 
     public static List<movieObj> jsonMoviesReminder = new ArrayList<>();
     public static boolean clickedFromReminder;
@@ -77,7 +77,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
             }
         });
 
-        reminderAdapter =new movieListAdapter(this, jsonMoviesReminder);
+        reminderAdapter =new MovieListAdapter(this, jsonMoviesReminder);
         reminderLv.setAdapter(reminderAdapter);
 
 

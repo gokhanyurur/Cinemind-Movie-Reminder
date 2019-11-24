@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.movieListAdapterMainPage;
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
+import edu.ktu.cinemind.entity.movieObj;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
@@ -24,7 +24,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
     private ListView moviesLv;
     private List<movieObj> publications = new ArrayList<>();
-    private movieListAdapterMainPage soonAdapter;
+    private MovieListAdapterMainPage soonAdapter;
     public static List<movieObj> jsonMovies = new ArrayList<>();
 
     public static boolean clickedFromSGM;
@@ -43,7 +43,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
         moviesLv=(ListView) findViewById(R.id.genreMoviesList);
 
-        soonAdapter = new movieListAdapterMainPage(this, jsonMovies);
+        soonAdapter = new MovieListAdapterMainPage(this, jsonMovies);
         moviesLv.setAdapter(soonAdapter);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);

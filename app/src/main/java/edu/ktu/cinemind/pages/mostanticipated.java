@@ -16,15 +16,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.adapters.movieListAdapterMainPage;
-import edu.ktu.cinemind.objects.movieObj;
+import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
+import edu.ktu.cinemind.entity.movieObj;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
 public class mostanticipated extends android.support.v4.app.Fragment implements movieRequestOperator.RequestOperatorListener {
 
     private ListView mostAntiListView;
-    private movieListAdapterMainPage mostAntiAdapter;
+    private MovieListAdapterMainPage mostAntiAdapter;
     private List<movieObj> publicationsMA = new ArrayList<>();
 
     public static List<movieObj> jsonMoviesMA = new ArrayList<>();
@@ -43,7 +43,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
         View rootView = inflater.inflate(R.layout.mostantipagedesign, container, false);
 
         mostAntiListView=(ListView) rootView.findViewById(R.id.mostAntListView);
-        mostAntiAdapter=new movieListAdapterMainPage(rootView.getContext(), jsonMoviesMA);
+        mostAntiAdapter=new MovieListAdapterMainPage(rootView.getContext(), jsonMoviesMA);
         mostAntiListView.setAdapter(mostAntiAdapter);
 
         jsonMoviesMA.clear();
@@ -106,7 +106,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
             @Override
             public void run(){
                 //System.out.println(publicationsMA.get(1));
-                if(!publicationsMA.isEmpty() && publicationsMA!=null){
+                if(publicationsMA!=null && !publicationsMA.isEmpty()){
                     getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publicationsMA.size();i++) {
 
