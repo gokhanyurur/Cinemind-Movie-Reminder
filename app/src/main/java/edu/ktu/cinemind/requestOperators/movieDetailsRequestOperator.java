@@ -14,10 +14,10 @@ import java.util.List;
 
 import edu.ktu.cinemind.entity.Cast;
 import edu.ktu.cinemind.entity.Crew;
-import edu.ktu.cinemind.entity.genreObj;
-import edu.ktu.cinemind.entity.image;
-import edu.ktu.cinemind.entity.movieObj;
-import edu.ktu.cinemind.entity.video;
+import edu.ktu.cinemind.entity.Genre;
+import edu.ktu.cinemind.entity.Image;
+import edu.ktu.cinemind.entity.Movie;
+import edu.ktu.cinemind.entity.Video;
 
 public class movieDetailsRequestOperator extends Thread {
 
@@ -25,13 +25,13 @@ public class movieDetailsRequestOperator extends Thread {
     public static String urlToRequest;
 
     public interface RequestOperatorListener{
-        void success(movieObj publication);
+        void success(Movie publication);
         void failed(int responseCode);
     }
 
     private RequestOperatorListener listener;
     private int responseCode;
-    public movieObj publication;
+    public Movie publication;
 
     public void setListener(RequestOperatorListener listener) {
         this.listener = listener;
@@ -53,7 +53,7 @@ public class movieDetailsRequestOperator extends Thread {
         }
     }
 
-    private movieObj request(String url) throws IOException, JSONException {
+    private Movie request(String url) throws IOException, JSONException {
 
         URL obj = new URL(url);
 
@@ -90,11 +90,11 @@ public class movieDetailsRequestOperator extends Thread {
             return null;
     }
 
-    public movieObj parsingJsonObject(String response) throws JSONException{
+    public Movie parsingJsonObject(String response) throws JSONException{
 
         JSONObject object=new JSONObject(response);
 
-        movieObj post = new movieObj();
+        Movie post = new Movie();
 
         post.setId(object.optInt("id"));
 
@@ -102,21 +102,21 @@ public class movieDetailsRequestOperator extends Thread {
 
         post.setStatus(object.getString("status"));
 
-        post.setPoster_path(object.getString("poster_path"));
+        post.setPosterPath(object.getString("poster_path"));
 
-        post.setBackdrop_path(object.getString("backdrop_path"));
+        post.setBackdropPath(object.getString("backdrop_path"));
 
         post.setTitle(object.getString("title"));
 
-        post.setRelease_date(object.getString("release_date"));
+        post.setReleaseDate(object.getString("release_date"));
 
         post.setLength(object.optInt("runtime"));
 
         JSONArray genresJsonArray =object.getJSONArray("genres");
-        List<genreObj> genres =new ArrayList<>();
+        List<Genre> genres =new ArrayList<>();
         for (int i = 0; i < genresJsonArray.length(); i++) {
             JSONObject jsonobject = genresJsonArray.getJSONObject(i);
-            genreObj postcp=parseGenresArray(jsonobject.toString());
+            Genre postcp=parseGenresArray(jsonobject.toString());
             genres.add(postcp);
         }
         post.setGenres(genres);
@@ -143,23 +143,26 @@ public class movieDetailsRequestOperator extends Thread {
 
         //set videos
         JSONArray videosJsonArray=getJsonVideos(object.getString("videos"));
-        List<video> videoList =new ArrayList<>();
+        List<Video> videoList =new ArrayList<>();
         for (int i = 0; i < videosJsonArray.length(); i++) {
             JSONObject jsonobject = videosJsonArray.getJSONObject(i);
-            video postcp=parseVideosArray(jsonobject.toString());
+            Video postcp=parseVideosArray(jsonobject.toString());
             videoList.add(postcp);
         }
         post.setVideoList(videoList);
 
-        //set images backdrops
-        JSONArray imagesJsonArray=getJsonImages(object.getString("images"));
-        List<image> imageList =new ArrayList<>();
-        for (int i = 0; i < imagesJsonArray.length(); i++) {
-            JSONObject jsonobject = imagesJsonArray.getJSONObject(i);
-            image postcp=parseImagesArray(jsonobject.toString());
-            imageList.add(postcp);
+        //set Images backdrops
+        if (object.has("images")) {
+            JSONArray imagesJsonArray = getJsonImages(object.getString("images"));
+            List<Image> imageList =new ArrayList<>();
+            for (int i = 0; i < imagesJsonArray.length(); i++) {
+                JSONObject jsonobject = imagesJsonArray.getJSONObject(i);
+                Image postcp=parseImagesArray(jsonobject.toString());
+                imageList.add(postcp);
+            }
+            post.setImageList(imageList);
         }
-        post.setImageList(imageList);
+
 
         return post;
     }
@@ -197,9 +200,9 @@ public class movieDetailsRequestOperator extends Thread {
         return videosArray;
     }
 
-    private video parseVideosArray(String response) throws  JSONException{
+    private Video parseVideosArray(String response) throws  JSONException{
         JSONObject object=new JSONObject(response);
-        video movieVideo= new video();
+        Video movieVideo= new Video();
 
         movieVideo.setId(object.getString("id"));
         movieVideo.setKey(object.getString("key"));
@@ -218,10 +221,10 @@ public class movieDetailsRequestOperator extends Thread {
         return imagesArray;
     }
 
-    private image parseImagesArray(String response) throws  JSONException{
+    private Image parseImagesArray(String response) throws  JSONException{
 
         JSONObject object=new JSONObject(response);
-        image movieImage= new image();
+        Image movieImage= new Image();
 
         movieImage.setAspectRatio(object.getLong("aspect_ratio"));
         movieImage.setFilePath(object.getString("file_path"));
@@ -245,9 +248,9 @@ public class movieDetailsRequestOperator extends Thread {
 
     }
 
-    private genreObj parseGenresArray(String response) throws JSONException{
+    private Genre parseGenresArray(String response) throws JSONException{
         JSONObject object=new JSONObject(response);
-        genreObj genre= new genreObj();
+        Genre genre= new Genre();
 
         genre.setId(object.optInt("id"));
         genre.setTitle(object.getString("name"));
@@ -260,7 +263,7 @@ public class movieDetailsRequestOperator extends Thread {
             listener.failed(code);
     }
 
-    private void success(movieObj publication){
+    private void success(Movie publication){
         if(listener!= null)
             listener.success(publication);
     }

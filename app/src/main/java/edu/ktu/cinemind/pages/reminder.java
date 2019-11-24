@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
 import edu.ktu.cinemind.adapter.MovieListAdapter;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.entity.movieToSave;
 
 
@@ -36,13 +36,13 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
     ListView reminderLv;
     private MovieListAdapter reminderAdapter;
 
-    public static List<movieObj> jsonMoviesReminder = new ArrayList<>();
+    public static List<Movie> jsonMoviesReminder = new ArrayList<>();
     public static boolean clickedFromReminder;
 
     private DatabaseReference dbReminder;
     private FirebaseAuth firebaseAuth;
     private movieToSave reminderMovies =new movieToSave();
-    private List<movieObj> publications=new ArrayList<>();
+    private List<Movie> publications=new ArrayList<>();
 
     private Context context;
 
@@ -146,7 +146,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
 
-                        String[] releaseDateArray = publications.get(i).getRelease_date().split("-");
+                        String[] releaseDateArray = publications.get(i).getReleaseDate().split("-");
 
                         int year = Integer.parseInt(releaseDateArray[0]);
                         int month = Integer.parseInt(releaseDateArray[1]);
@@ -164,7 +164,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
                         daysDiff+=1;
 
                        if(daysDiff>0){
-                           jsonMoviesReminder.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                           jsonMoviesReminder.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate(), publications.get(i).getPosterPath(),publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                            findViewById(R.id.noMovieSignRem).setVisibility(View.GONE);
                        }
                     }
@@ -179,7 +179,7 @@ public class reminder extends AppCompatActivity implements customListMoviesReque
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

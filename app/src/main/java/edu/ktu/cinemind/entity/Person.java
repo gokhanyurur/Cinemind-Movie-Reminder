@@ -59,7 +59,7 @@ public class Person {
     }
 
     /**
-     * @return image path of the person.
+     * @return Image path of the person.
      */
     public String getImagePath(){
         return imagePath;

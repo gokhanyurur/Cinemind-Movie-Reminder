@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
@@ -25,11 +25,11 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
 
     private ListView mostAntiListView;
     private MovieListAdapterMainPage mostAntiAdapter;
-    private List<movieObj> publicationsMA = new ArrayList<>();
+    private List<Movie> publicationsMA = new ArrayList<>();
 
-    public static List<movieObj> jsonMoviesMA = new ArrayList<>();
+    public static List<Movie> jsonMoviesMA = new ArrayList<>();
 
-    private List<movieObj> nextPageJsonMovies = new ArrayList<>();
+    private List<Movie> nextPageJsonMovies = new ArrayList<>();
 
     public static boolean clickedFromMA;
 
@@ -92,7 +92,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
 
     }
 
-    public void addListItemToAdapter(List<movieObj> list){
+    public void addListItemToAdapter(List<Movie> list){
         jsonMoviesMA.addAll(list);
         mostAntiListView.invalidateViews();
         mostAntiAdapter.notifyDataSetChanged();
@@ -110,7 +110,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
                     getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publicationsMA.size();i++) {
 
-                        String[] releaseDateArray = publicationsMA.get(i).getRelease_date().split("-");
+                        String[] releaseDateArray = publicationsMA.get(i).getReleaseDate().split("-");
 
                         int year = Integer.parseInt(releaseDateArray[0]);
                         int month = Integer.parseInt(releaseDateArray[1]);
@@ -129,12 +129,12 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
                         publicationsMA.get(i).setDayLeft((int)daysDiff);
 
                         if (daysDiff>1) {
-                            nextPageJsonMovies.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(),publicationsMA.get(i).getRelease_date()+" ("+publicationsMA.get(i).getDayLeft()+" days left)", publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(),publicationsMA.get(i).getReleaseDate()+" ("+publicationsMA.get(i).getDayLeft()+" days left)", publicationsMA.get(i).getPosterPath(), publicationsMA.get(i).getBackdropPath(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVoteAverage()));
                         }else if (daysDiff==0 && (cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH)==1)) {
                             daysDiff=cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH);
-                            nextPageJsonMovies.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(),publicationsMA.get(i).getRelease_date()+" (Tomorrow)", (int)daysDiff, publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(),publicationsMA.get(i).getReleaseDate()+" (Tomorrow)", (int)daysDiff, publicationsMA.get(i).getPosterPath(), publicationsMA.get(i).getBackdropPath(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVoteAverage()));
                         }else if (daysDiff==0) {
-                            nextPageJsonMovies.add(new movieObj(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), publicationsMA.get(i).getRelease_date()+" (Today)" , publicationsMA.get(i).getDayLeft(), publicationsMA.get(i).getPoster_path(), publicationsMA.get(i).getBackdrop_path(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publicationsMA.get(i).getId(), publicationsMA.get(i).getTitle(), publicationsMA.get(i).getReleaseDate()+" (Today)" , publicationsMA.get(i).getDayLeft(), publicationsMA.get(i).getPosterPath(), publicationsMA.get(i).getBackdropPath(), publicationsMA.get(i).getOverview(), publicationsMA.get(i).getVoteAverage()));
                         }
 
                     }
@@ -150,7 +150,7 @@ public class mostanticipated extends android.support.v4.app.Fragment implements 
 
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publicationsMA =publications;
         updatePublication();
     }

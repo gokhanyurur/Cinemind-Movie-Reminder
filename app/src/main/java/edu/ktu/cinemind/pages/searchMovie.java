@@ -22,7 +22,7 @@ import java.util.List;
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 
 
 public class searchMovie extends AppCompatActivity implements movieRequestOperator.RequestOperatorListener {
@@ -30,13 +30,13 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
     ListView searchLv;
     private MovieListAdapterMainPage searchListAdapter;
 
-    public static List<movieObj> jsonMoviesSearchMovie = new ArrayList<>();
+    public static List<Movie> jsonMoviesSearchMovie = new ArrayList<>();
     public static boolean clickedFromSearch;
 
     private FirebaseAuth firebaseAuth;
-    private List<movieObj> publications=new ArrayList<>();
+    private List<Movie> publications=new ArrayList<>();
 
-    private List<movieObj> nextPageJsonMovies = new ArrayList<>();
+    private List<Movie> nextPageJsonMovies = new ArrayList<>();
     public static boolean loadingMore=false;
     private int queryCurrentPage =1;
 
@@ -158,7 +158,7 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
         return super.onOptionsItemSelected(item);
     }
 
-    public void addListItemToAdapter(List<movieObj> list){
+    public void addListItemToAdapter(List<Movie> list){
         jsonMoviesSearchMovie.addAll(list);
         searchLv.invalidateViews();
         searchListAdapter.notifyDataSetChanged();
@@ -175,7 +175,7 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
                 if(publications!=null && !publications.isEmpty()){
                     //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++) {
-                        nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(), publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                        nextPageJsonMovies.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate(), publications.get(i).getPosterPath(), publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                     }
                     //searchLv.invalidateViews();
                     addListItemToAdapter(nextPageJsonMovies);
@@ -190,7 +190,7 @@ public class searchMovie extends AppCompatActivity implements movieRequestOperat
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

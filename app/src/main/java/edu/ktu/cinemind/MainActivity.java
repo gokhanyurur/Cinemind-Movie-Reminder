@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.adapter.PagerAdapter;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.entity.movieToSave;
 import edu.ktu.cinemind.pages.favorites;
 import edu.ktu.cinemind.pages.loginScreen;
@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     AlarmManager alarmManager;
     Intent alarmIntent;
 
-    public static List<movieObj> jsonMoviesNotification = new ArrayList<>();
-    private List<movieObj> publications=new ArrayList<>();
+    public static List<Movie> jsonMoviesNotification = new ArrayList<>();
+    private List<Movie> publications=new ArrayList<>();
     private DatabaseReference dbReminder;
     private movieToSave reminderMovies =new movieToSave();
 
@@ -303,13 +303,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     findViewById(R.id.loadingPanel).setVisibility(View.INVISIBLE);
                     for(int i=0;i<publications.size();i++){
                         //if(publications.get(i).getDayLeft()>=0){
-                            jsonMoviesNotification.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            jsonMoviesNotification.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate(), publications.get(i).getPosterPath(),publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                         //}
                     }
                     if(canUpdateNotification){
                         canUpdateNotification=false;
-                        for(movieObj movie:jsonMoviesNotification) {
-                            String[] releaseDateArray = movie.getRelease_date().split("-");
+                        for(Movie movie:jsonMoviesNotification) {
+                            String[] releaseDateArray = movie.getReleaseDate().split("-");
 
                             int year = Integer.parseInt(releaseDateArray[0]);
                             int month = Integer.parseInt(releaseDateArray[1]);
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

@@ -16,20 +16,20 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
 public class selectedGenreMovies extends AppCompatActivity implements movieRequestOperator.RequestOperatorListener {
 
     private ListView moviesLv;
-    private List<movieObj> publications = new ArrayList<>();
+    private List<Movie> publications = new ArrayList<>();
     private MovieListAdapterMainPage soonAdapter;
-    public static List<movieObj> jsonMovies = new ArrayList<>();
+    public static List<Movie> jsonMovies = new ArrayList<>();
 
     public static boolean clickedFromSGM;
 
-    private List<movieObj> nextPageJsonMovies = new ArrayList<>();
+    private List<Movie> nextPageJsonMovies = new ArrayList<>();
     public static boolean sorted=false,loadingMore=false;
     private int queryCurrentPage =1;
 
@@ -110,7 +110,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
     }
 
-    public void addListItemToAdapter(List<movieObj> list){
+    public void addListItemToAdapter(List<Movie> list){
         jsonMovies.addAll(list);
         moviesLv.invalidateViews();
         soonAdapter.notifyDataSetChanged();
@@ -126,8 +126,8 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
                 if(publications!=null && !publications.isEmpty()){
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++) {
-                        if (!publications.get(i).getPoster_path().equals("null")) {
-                            jsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(), publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                        if (!publications.get(i).getPosterPath().equals("null")) {
+                            jsonMovies.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate(), publications.get(i).getPosterPath(), publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                         }
                     }
                     //moviesLv.invalidateViews();
@@ -143,7 +143,7 @@ public class selectedGenreMovies extends AppCompatActivity implements movieReque
 
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

@@ -7,8 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * The Property reader class.
+ */
 public class PropertyReader {
 
+    /**
+     * Gets property.
+     *
+     * @param key     the key
+     * @param context the context
+     * @return the property
+     */
     public static String getProperty(String key, Context context) {
         try {
             Properties properties = new Properties();

@@ -23,7 +23,7 @@ import java.util.List;
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.requestOperators.customListMoviesRequestOperator;
 import edu.ktu.cinemind.adapter.MovieListAdapter;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.entity.movieToSave;
 
 
@@ -32,13 +32,13 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
     ListView WatchlistLv;
     private MovieListAdapter watchlistAdapter;
 
-    public static List<movieObj> jsonMoviesWatchlist = new ArrayList<>();
+    public static List<Movie> jsonMoviesWatchlist = new ArrayList<>();
     public static boolean clickedFromWatchlist;
 
     private DatabaseReference dbWatchlist;
     private FirebaseAuth firebaseAuth;
     private movieToSave watchlistMovie =new movieToSave();
-    private List<movieObj> publications=new ArrayList<>();
+    private List<Movie> publications=new ArrayList<>();
 
 
 
@@ -142,7 +142,7 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
                     findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     findViewById(R.id.noMovieSignWL).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++) {
-                        jsonMoviesWatchlist.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date(), publications.get(i).getPoster_path(), publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                        jsonMoviesWatchlist.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate(), publications.get(i).getPosterPath(), publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                     }
                     WatchlistLv.invalidateViews();
                 }else{
@@ -155,7 +155,7 @@ public class watchlist extends AppCompatActivity implements customListMoviesRequ
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

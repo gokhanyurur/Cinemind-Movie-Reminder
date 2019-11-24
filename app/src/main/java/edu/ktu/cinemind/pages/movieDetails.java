@@ -54,7 +54,7 @@ import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapter.CastListAdapter;
 import edu.ktu.cinemind.adapter.CrewListAdapter;
 import edu.ktu.cinemind.requestOperators.movieDetailsRequestOperator;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.entity.movieToSave;
 import edu.ktu.cinemind.services.RecyclerItemClickListener;
 
@@ -64,7 +64,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private CheckBox addFavorites,addWatchlist,setReminder;
     private ImageView moviePoster;
     private TextView movieName,movieDirector,movieLength,movieRate,movieReleaseDate, movieOverview, movieGenres;
-    private movieObj publication;
+    private Movie publication;
 
     private ListView castLv,crewLv;
     private CastListAdapter castAdapter;
@@ -93,11 +93,11 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     private Button watchTrailer;
 
     private RecyclerView recyclerView;
-    private List<movieObj> recMovies=new ArrayList<>();
-    private List<movieObj> publications = new ArrayList<>();
+    private List<Movie> recMovies=new ArrayList<>();
+    private List<Movie> publications = new ArrayList<>();
     private RecommendedMovieAdapter recMoviesAdapter;
 
-    private movieObj movieWithDetails;
+    private Movie movieWithDetails;
 
     private boolean gotDetails=false,gotRecommendedMovies=false;
 
@@ -160,7 +160,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
         recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-        recMoviesAdapter=new RecommendedMovieAdapter(recMovies);
+        recMoviesAdapter=new RecommendedMovieAdapter(getApplicationContext(), recMovies);
         recyclerView.setAdapter(recMoviesAdapter);
 
         if (recMovies.isEmpty()) {
@@ -185,49 +185,49 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
                 })
         );
 
-        movieObj item;
+        Movie item;
 
         if(mostanticipated.clickedFromMA){
-            item = movieObj.getMovieByID(mostanticipated.jsonMoviesMA, soonpage.clickedMovie);
+            item = Movie.getMovieByID(mostanticipated.jsonMoviesMA, soonpage.clickedMovie);
             mostanticipated.clickedFromMA=false;
         }
         else if(selectedGenreMovies.clickedFromSGM){
-            item = movieObj.getMovieByID(selectedGenreMovies.jsonMovies,soonpage.clickedMovie);
+            item = Movie.getMovieByID(selectedGenreMovies.jsonMovies,soonpage.clickedMovie);
             selectedGenreMovies.clickedFromSGM=false;
         }
         else if(favorites.clickedFromFavs){
-            item = movieObj.getMovieByID(favorites.jsonMoviesFavs,soonpage.clickedMovie);
+            item = Movie.getMovieByID(favorites.jsonMoviesFavs,soonpage.clickedMovie);
             favorites.clickedFromFavs=false;
         }
         else if(watchlist.clickedFromWatchlist){
-            item = movieObj.getMovieByID(watchlist.jsonMoviesWatchlist,soonpage.clickedMovie);
+            item = Movie.getMovieByID(watchlist.jsonMoviesWatchlist,soonpage.clickedMovie);
             watchlist.clickedFromWatchlist=false;
         }
         else if(reminder.clickedFromReminder){
-            item = movieObj.getMovieByID(reminder.jsonMoviesReminder,soonpage.clickedMovie);
+            item = Movie.getMovieByID(reminder.jsonMoviesReminder,soonpage.clickedMovie);
             reminder.clickedFromReminder=false;
         }
         else if(searchMovie.clickedFromSearch){
-            item = movieObj.getMovieByID(searchMovie.jsonMoviesSearchMovie,soonpage.clickedMovie);
+            item = Movie.getMovieByID(searchMovie.jsonMoviesSearchMovie,soonpage.clickedMovie);
             searchMovie.clickedFromSearch=false;
         }
         else{
-            item = movieObj.getMovieByID(soonpage.jsonMovies,soonpage.clickedMovie);
+            item = Movie.getMovieByID(soonpage.jsonMovies,soonpage.clickedMovie);
         }
 
         movieName.setText(item.getTitle());
         setTitle(item.getTitle().toUpperCase());
 
-        String imgPath= "https://image.tmdb.org/t/p/w780"+item.getBackdrop_path();
-        //String imgPath= "https://image.tmdb.org/t/p/w300"+item.getBackdrop_path();
+        String imgPath= "https://image.tmdb.org/t/p/w780"+item.getBackdropPath();
+        //String imgPath= "https://image.tmdb.org/t/p/w300"+item.getBackdropPath();
 
         Glide.with(getApplicationContext())
                 .load(imgPath)
                 .into(moviePoster);
 
 
-        if(item.getVote_average()>0){
-            movieRate.setText(item.getVote_average()+"/10");
+        if(item.getVoteAverage()>0){
+            movieRate.setText(item.getVoteAverage()+"/10");
         }
         else{
             movieRate.setText("-/10");
@@ -567,9 +567,9 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
             @Override
             public void run(){
                 if(publication!=null && gotDetails && !gotRecommendedMovies){
-                    movieReleaseDate.setText(publication.getRelease_date());
+                    movieReleaseDate.setText(publication.getReleaseDate());
 
-                    String[] releaseDateArray = publication.getRelease_date().split("-");
+                    String[] releaseDateArray = publication.getReleaseDate().split("-");
 
                     int year = Integer.parseInt(releaseDateArray[0]);
                     int month = Integer.parseInt(releaseDateArray[1]);
@@ -664,8 +664,8 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
                 if(publications!=null && !publications.isEmpty() && gotDetails && gotRecommendedMovies){
                     for(int i=0;i<publications.size();i++){
-                        recMovies.add(new movieObj(publications.get(i).getId(),publications.get(i).getTitle(),publications.get(i).getRelease_date(),publications.get(i).getPoster_path()));
-                        recMovies.get(i).setBackdrop_path(publications.get(i).getBackdrop_path());
+                        recMovies.add(new Movie(publications.get(i).getId(),publications.get(i).getTitle(),publications.get(i).getReleaseDate(),publications.get(i).getPosterPath()));
+                        recMovies.get(i).setBackdropPath(publications.get(i).getBackdropPath());
                         //System.out.println(publications.get(i).getTitle()+" is recommended. from movie details.");
                     }
                     final float scale = getApplicationContext().getResources().getDisplayMetrics().density;
@@ -689,7 +689,7 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
     }
 
     public void fillViewPager(){
-        ViewPagerAdapter.images=publication.getImagesList();
+        ViewPagerAdapter.Images =publication.getImagesList();
         viewPager = (ViewPager) findViewById(R.id.myViewPager);
         viewPager.setPageMargin(0);
         viewPagerAdapter = new ViewPagerAdapter(this);
@@ -702,13 +702,13 @@ public class movieDetails extends AppCompatActivity implements movieDetailsReque
 
 
     @Override
-    public void success(movieObj publication) {
+    public void success(Movie publication) {
         this.publication=publication;
         updatePublication();
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

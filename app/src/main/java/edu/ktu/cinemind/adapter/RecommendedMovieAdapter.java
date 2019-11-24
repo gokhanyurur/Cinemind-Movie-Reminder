@@ -14,7 +14,7 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.config.PropertyReader;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 
 /**
  * The type Recommended movie adapter.
@@ -24,7 +24,7 @@ public class RecommendedMovieAdapter extends RecyclerView.Adapter<RecommendedMov
     /**
      * The Movies.
      */
-    private List<movieObj> movies;
+    private List<Movie> movies;
 
     /**
      * The Context.
@@ -36,8 +36,9 @@ public class RecommendedMovieAdapter extends RecyclerView.Adapter<RecommendedMov
      *
      * @param movies the movies
      */
-    public RecommendedMovieAdapter(List<movieObj> movies){
-        this.movies =movies;
+    public RecommendedMovieAdapter(Context context, List<Movie> movies){
+        this.movies = movies;
+        this.context = context;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class RecommendedMovieAdapter extends RecyclerView.Adapter<RecommendedMov
     public void onBindViewHolder(HorizontalViewHolder holder, int position) {
         holder.movieTitle.setText(movies.get(position).getTitle());
 
-        String imgPath = PropertyReader.getProperty("movie.poster.prefix", context) + movies.get(position).getPoster_path();
+        String imgPath = PropertyReader.getProperty("movie.poster.prefix", context) + movies.get(position).getPosterPath();
 
         Picasso.with(holder.moviePoster.getContext())
                 .load(imgPath)

@@ -16,13 +16,13 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.config.PropertyReader;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 
 
 /**
  * The type Movie list adapter.
  */
-public class MovieListAdapter extends ArrayAdapter<movieObj> {
+public class MovieListAdapter extends ArrayAdapter<Movie> {
 
     /**
      * The Context.
@@ -35,7 +35,7 @@ public class MovieListAdapter extends ArrayAdapter<movieObj> {
      * @param context the context
      * @param objects the objects
      */
-    public MovieListAdapter(Context context, List<movieObj> objects){
+    public MovieListAdapter(Context context, List<Movie> objects){
         super(context, R.layout.movieobjlistitemdesign,objects);
         this.context=context;
     }
@@ -58,13 +58,13 @@ public class MovieListAdapter extends ArrayAdapter<movieObj> {
                 TextView releaseDate = v.findViewById(R.id.inTheater);
                 ImageView image = v.findViewById(R.id.movieposter);
 
-                movieObj movie = getItem(position);
+                Movie movie = getItem(position);
 
                 if (movie != null){
                     title.setText(movie.getTitle());
-                    releaseDate.setText(movie.getRelease_date());
+                    releaseDate.setText(movie.getReleaseDate());
 
-                    String imgPath= PropertyReader.getProperty("movie.poster.prefix", context) + movie.getPoster_path();
+                    String imgPath= PropertyReader.getProperty("movie.poster.prefix", context) + movie.getPosterPath();
 
                     Picasso.with(context)
                             .load(imgPath)

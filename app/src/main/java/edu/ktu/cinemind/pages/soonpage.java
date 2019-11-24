@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.adapter.MovieListAdapterMainPage;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 import edu.ktu.cinemind.requestOperators.movieRequestOperator;
 
 
@@ -26,12 +26,12 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
 
     private static ListView moviesLv;
     private MovieListAdapterMainPage soonAdapter;
-    private List<movieObj> publications = new ArrayList<>();
+    private List<Movie> publications = new ArrayList<>();
 
     public static int clickedMovie;
-    public static List<movieObj> jsonMovies = new ArrayList<>();
+    public static List<Movie> jsonMovies = new ArrayList<>();
 
-    private List<movieObj> nextPageJsonMovies = new ArrayList<>();
+    private List<Movie> nextPageJsonMovies = new ArrayList<>();
 
     Context thiscontext;
 
@@ -81,7 +81,7 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
         return rootview;
     }
 
-    public void addListItemToAdapter(List<movieObj> list){
+    public void addListItemToAdapter(List<Movie> list){
         jsonMovies.addAll(list);
         moviesLv.invalidateViews();
         soonAdapter.notifyDataSetChanged();
@@ -112,7 +112,7 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
                     getActivity().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                     for(int i=0;i<publications.size();i++){
 
-                        String[] releaseDateArray = publications.get(i).getRelease_date().split("-");
+                        String[] releaseDateArray = publications.get(i).getReleaseDate().split("-");
 
                         int year = Integer.parseInt(releaseDateArray[0]);
                         int month = Integer.parseInt(releaseDateArray[1]);
@@ -131,15 +131,15 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
                         publications.get(i).setDayLeft((int)daysDiff);
 
                         if(daysDiff>1){
-                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" ("+publications.get(i).getDayLeft()+" days left)", publications.get(i).getDayLeft() ,publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate()+" ("+publications.get(i).getDayLeft()+" days left)", publications.get(i).getDayLeft() ,publications.get(i).getPosterPath(),publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
 
                         }
                         else if(daysDiff==0 && (cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH)==1)){
                             daysDiff=cal2.get(Calendar.DAY_OF_MONTH)-cal.get(Calendar.DAY_OF_MONTH);
-                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Tomorrow)", (int)daysDiff, publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate()+" (Tomorrow)", (int)daysDiff, publications.get(i).getPosterPath(),publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                         }
                         else if(daysDiff==0){
-                            nextPageJsonMovies.add(new movieObj(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getRelease_date()+" (Today)" , publications.get(i).getDayLeft(), publications.get(i).getPoster_path(),publications.get(i).getBackdrop_path(), publications.get(i).getOverview(), publications.get(i).getVote_average()));
+                            nextPageJsonMovies.add(new Movie(publications.get(i).getId(), publications.get(i).getTitle(), publications.get(i).getReleaseDate()+" (Today)" , publications.get(i).getDayLeft(), publications.get(i).getPosterPath(),publications.get(i).getBackdropPath(), publications.get(i).getOverview(), publications.get(i).getVoteAverage()));
                         }
 
                     }
@@ -158,12 +158,12 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
         moviesLv.invalidateViews();
     }
 
-    private static List<movieObj> sortMoviesList(List<movieObj> movieList){
+    private static List<Movie> sortMoviesList(List<Movie> movieList){
 
         for(int i=0;i<movieList.size();i++){
             for(int j=i+1;j<movieList.size();j++){
                 if(movieList.get(i).getDayLeft()>movieList.get(j).getDayLeft()){
-                    movieObj tempObj=movieList.get(i);
+                    Movie tempObj=movieList.get(i);
                     movieList.set(i,movieList.get(j));
                     movieList.set(j,tempObj);
                 }
@@ -174,7 +174,7 @@ public class soonpage extends android.support.v4.app.Fragment implements movieRe
     }
 
     @Override
-    public void success(List<movieObj> publications) {
+    public void success(List<Movie> publications) {
         this.publications=publications;
         updatePublication();
     }

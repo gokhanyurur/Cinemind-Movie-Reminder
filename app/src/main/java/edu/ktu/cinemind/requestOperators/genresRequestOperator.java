@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ktu.cinemind.entity.genreObj;
+import edu.ktu.cinemind.entity.Genre;
 
 public class genresRequestOperator extends Thread {
 
@@ -20,13 +20,13 @@ public class genresRequestOperator extends Thread {
     public static String urlToRequest;
 
     public interface RequestOperatorListener{
-        void success(List<genreObj> publications);
+        void success(List<Genre> publications);
         void failed(int responseCode);
     }
 
     private RequestOperatorListener listener;
     private int responseCode;
-    public List<genreObj> publications=new ArrayList<>();
+    public List<Genre> publications=new ArrayList<>();
 
     public void setListener(RequestOperatorListener listener) {
         this.listener = listener;
@@ -48,7 +48,7 @@ public class genresRequestOperator extends Thread {
         }
     }
 
-    private List<genreObj> request(String url) throws IOException, JSONException {
+    private List<Genre> request(String url) throws IOException, JSONException {
 
         URL obj = new URL(url);
 
@@ -84,14 +84,14 @@ public class genresRequestOperator extends Thread {
             return null;
     }
 
-    public List<genreObj> getResultJsonObj(String response) throws  JSONException{
+    public List<Genre> getResultJsonObj(String response) throws  JSONException{
         JSONObject object=new JSONObject(response);
         JSONArray jsonArray =object.getJSONArray("genres");
 
-        List<genreObj> publicationsCp = new ArrayList<>();
+        List<Genre> publicationsCp = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonobject = jsonArray.getJSONObject(i);
-            genreObj postcp=parsingJsonObject(jsonobject.toString());
+            Genre postcp=parsingJsonObject(jsonobject.toString());
             publicationsCp.add(postcp);
         }
 
@@ -99,11 +99,11 @@ public class genresRequestOperator extends Thread {
 
     }
 
-    public genreObj parsingJsonObject(String response) throws JSONException{
+    public Genre parsingJsonObject(String response) throws JSONException{
 
         //attempts to create a json object of achieving a response
         JSONObject object=new JSONObject(response);
-        genreObj post = new genreObj();
+        Genre post = new Genre();
 
         post.setId(object.optInt("id", 0));
 
@@ -117,7 +117,7 @@ public class genresRequestOperator extends Thread {
             listener.failed(code);
     }
 
-    private void success(List<genreObj> publications){
+    private void success(List<Genre> publications){
         if(listener!= null)
             listener.success(publications);
     }

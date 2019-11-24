@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Movie;
 
 public class movieRequestOperator extends Thread {
 
@@ -21,13 +21,13 @@ public class movieRequestOperator extends Thread {
     //public static int maximumPage;
 
     public interface RequestOperatorListener{
-        void success(List<movieObj> publications);
+        void success(List<Movie> publications);
         void failed(int responseCode);
     }
 
     private RequestOperatorListener listener;
     private int responseCode;
-    public List<movieObj> publications=new ArrayList<>();
+    public List<Movie> publications=new ArrayList<>();
 
     public void setListener(RequestOperatorListener listener) {
         this.listener = listener;
@@ -96,7 +96,7 @@ public class movieRequestOperator extends Thread {
 
     }
 
-    private List<movieObj> request(String url) throws IOException, JSONException {
+    private List<Movie> request(String url) throws IOException, JSONException {
 
         URL obj = new URL(url);
 
@@ -134,14 +134,14 @@ public class movieRequestOperator extends Thread {
             return null;
     }
 
-    public List<movieObj> getResultJsonObj(String response) throws  JSONException{
+    public List<Movie> getResultJsonObj(String response) throws  JSONException{
         JSONObject object=new JSONObject(response);
         JSONArray jsonArray =object.getJSONArray("results");
 
-        List<movieObj> publicationsCp = new ArrayList<>();
+        List<Movie> publicationsCp = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonobject = jsonArray.getJSONObject(i);
-            movieObj postcp=parsingJsonObject(jsonobject.toString());
+            Movie postcp=parsingJsonObject(jsonobject.toString());
             publicationsCp.add(postcp);
         }
 
@@ -149,10 +149,10 @@ public class movieRequestOperator extends Thread {
 
     }
 
-    public movieObj parsingJsonObject(String response) throws JSONException{
+    public Movie parsingJsonObject(String response) throws JSONException{
 
         JSONObject object=new JSONObject(response);
-        movieObj post = new movieObj();
+        Movie post = new Movie();
 
         // TODO add check before request by the key.
         post.setId(object.optInt("id", 0));
@@ -160,16 +160,16 @@ public class movieRequestOperator extends Thread {
         post.setTitle(object.getString("title"));
 
         if (object.has("release_date")) {
-            post.setRelease_date(object.getString("release_date"));
+            post.setReleaseDate(object.getString("release_date"));
         }
 
-        post.setPoster_path(object.getString("poster_path"));
+        post.setPosterPath(object.getString("poster_path"));
 
-        post.setBackdrop_path(object.getString("backdrop_path"));
+        post.setBackdropPath(object.getString("backdrop_path"));
 
         post.setOverview(object.getString("overview"));
 
-        post.setVote_average(object.getDouble("vote_average"));
+        post.setVoteAverage(object.getDouble("vote_average"));
 
         return post;
     }
@@ -179,7 +179,7 @@ public class movieRequestOperator extends Thread {
             listener.failed(code);
     }
 
-    private void success(List<movieObj> publications){
+    private void success(List<Movie> publications){
         if(listener!= null)
             listener.success(publications);
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+//TODO this class will be removed after REST API implementation for DB.
 public class movieToSave {
     public String user_id;
     public List<Integer> movie_id=new ArrayList<>();

@@ -14,8 +14,8 @@ import java.util.List;
 
 import edu.ktu.cinemind.entity.Cast;
 import edu.ktu.cinemind.entity.Crew;
-import edu.ktu.cinemind.entity.genreObj;
-import edu.ktu.cinemind.entity.movieObj;
+import edu.ktu.cinemind.entity.Genre;
+import edu.ktu.cinemind.entity.Movie;
 
 public class customListMoviesRequestOperator extends Thread {
 
@@ -24,13 +24,13 @@ public class customListMoviesRequestOperator extends Thread {
     public static List<Integer> movieIds;
 
     public interface RequestOperatorListener{
-        void success(List<movieObj> publications);
+        void success(List<Movie> publications);
         void failed(int responseCode);
     }
 
     private RequestOperatorListener listener;
     private int responseCode;
-    public List<movieObj> publications=new ArrayList<>();
+    public List<Movie> publications=new ArrayList<>();
 
     public void setListener(RequestOperatorListener listener) {
         this.listener = listener;
@@ -52,13 +52,13 @@ public class customListMoviesRequestOperator extends Thread {
         }
     }
 
-    private List<movieObj> request(List<Integer> movieIds) throws IOException, JSONException {
+    private List<Movie> request(List<Integer> movieIds) throws IOException, JSONException {
 
-        List<movieObj> resultList= new ArrayList<>();
+        List<Movie> resultList= new ArrayList<>();
 
         for(int i=0;i<movieIds.size();i++){
 
-            String url ="https://api.themoviedb.org/3/movie/"+movieIds.get(i)+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,image";
+            String url ="https://api.themoviedb.org/3/movie/"+movieIds.get(i)+"?api_key=a092bd16da64915723b2521295da3254&append_to_response=credits,videos,Image";
 
             URL obj = new URL(url);
 
@@ -99,11 +99,11 @@ public class customListMoviesRequestOperator extends Thread {
         return resultList;
     }
 
-    public movieObj parsingJsonObject(String response) throws JSONException{
+    public Movie parsingJsonObject(String response) throws JSONException{
 
         JSONObject object=new JSONObject(response);
 
-        movieObj post = new movieObj();
+        Movie post = new Movie();
 
         post.setId(object.optInt("id"));
 
@@ -111,21 +111,21 @@ public class customListMoviesRequestOperator extends Thread {
 
         post.setStatus(object.getString("status"));
 
-        post.setPoster_path(object.getString("poster_path"));
+        post.setPosterPath(object.getString("poster_path"));
 
-        post.setBackdrop_path(object.getString("backdrop_path"));
+        post.setBackdropPath(object.getString("backdrop_path"));
 
         post.setTitle(object.getString("title"));
 
-        post.setRelease_date(object.getString("release_date"));
+        post.setReleaseDate(object.getString("release_date"));
 
         post.setLength(object.getInt("runtime"));
 
         JSONArray genresJsonArray =object.getJSONArray("genres");
-        List<genreObj> genres =new ArrayList<>();
+        List<Genre> genres =new ArrayList<>();
         for (int i = 0; i < genresJsonArray.length(); i++) {
             JSONObject jsonobject = genresJsonArray.getJSONObject(i);
-            genreObj postcp=parseGenresArray(jsonobject.toString());
+            Genre postcp=parseGenresArray(jsonobject.toString());
             genres.add(postcp);
         }
         post.setGenres(genres);
@@ -152,7 +152,7 @@ public class customListMoviesRequestOperator extends Thread {
 
         //set videos
 
-        //set image
+        //set Image
 
         return post;
     }
@@ -194,9 +194,9 @@ public class customListMoviesRequestOperator extends Thread {
 
     }
 
-    private genreObj parseGenresArray(String response) throws JSONException{
+    private Genre parseGenresArray(String response) throws JSONException{
         JSONObject object=new JSONObject(response);
-        genreObj genre= new genreObj();
+        Genre genre= new Genre();
 
         genre.setId(object.optInt("id"));
         genre.setTitle(object.getString("name"));
@@ -209,7 +209,7 @@ public class customListMoviesRequestOperator extends Thread {
             listener.failed(code);
     }
 
-    private void success(List<movieObj> publications){
+    private void success(List<Movie> publications){
         if(listener!= null)
             listener.success(publications);
     }

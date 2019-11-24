@@ -27,7 +27,7 @@ public class Crew extends Person {
      *
      * @param id         the id
      * @param name       the name
-     * @param imageId    the image id
+     * @param imageId    the Image id
      * @param department the department
      * @param job        the job
      */

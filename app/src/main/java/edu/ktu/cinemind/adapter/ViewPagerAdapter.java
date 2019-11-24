@@ -13,7 +13,7 @@ import java.util.List;
 
 import edu.ktu.cinemind.R;
 import edu.ktu.cinemind.config.PropertyReader;
-import edu.ktu.cinemind.entity.image;
+import edu.ktu.cinemind.entity.Image;
 
 /**
  * The type View pager adapter.
@@ -28,7 +28,7 @@ public class ViewPagerAdapter extends android.support.v4.view.PagerAdapter{
     /**
      * The Images.
      */
-    public static List<image> images;
+    public static List<Image> Images;
 
     /**
      * Instantiates a new View pager adapter.
@@ -42,7 +42,7 @@ public class ViewPagerAdapter extends android.support.v4.view.PagerAdapter{
 
     @Override
     public int getCount() {
-        return images.size();
+        return Images.size();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ViewPagerAdapter extends android.support.v4.view.PagerAdapter{
             View view = inflater.inflate(R.layout.movieimagesitem, null);
             ImageView imageView = view.findViewById(R.id.movieImages);
 
-            String imgPath = PropertyReader.getProperty("movie.poster.prefix", context) + images.get(position).getFilePath();
+            String imgPath = PropertyReader.getProperty("movie.poster.prefix", context) + Images.get(position).getFilePath();
 
             Picasso.with(context)
                     .load(imgPath)

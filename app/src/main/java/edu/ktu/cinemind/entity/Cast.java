@@ -32,7 +32,7 @@ public class Cast extends Person {
      *
      * @param id        the id
      * @param name      the name
-     * @param imagePath the image path
+     * @param imagePath the Image path
      * @param character the character
      */
     public Cast(int id, String name, String imagePath, String character){

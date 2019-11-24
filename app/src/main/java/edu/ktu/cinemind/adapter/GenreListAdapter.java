@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.ktu.cinemind.R;
-import edu.ktu.cinemind.entity.genreObj;
+import edu.ktu.cinemind.entity.Genre;
 
 
 /**
  * The type Genre list adapter.
  */
-public class GenreListAdapter extends ArrayAdapter<genreObj> {
+public class GenreListAdapter extends ArrayAdapter<Genre> {
 
     /**
      * Instantiates a new Genre list adapter.
@@ -25,7 +25,7 @@ public class GenreListAdapter extends ArrayAdapter<genreObj> {
      * @param context the context
      * @param objects the objects
      */
-    public GenreListAdapter(Context context, List<genreObj> objects){
+    public GenreListAdapter(Context context, List<Genre> objects){
         super(context, R.layout.genrelistitemdesign,objects);
     }
 
@@ -42,7 +42,7 @@ public class GenreListAdapter extends ArrayAdapter<genreObj> {
                 TextView title = v.findViewById(R.id.genreTitle);
                 ImageView image = v.findViewById(R.id.genreImg);
 
-                genreObj genre = getItem(position);
+                Genre genre = getItem(position);
 
                 if (genre != null){
                     title.setText(genre.getTitle());
