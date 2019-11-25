@@ -31,25 +31,28 @@ public class GenreListAdapter extends ArrayAdapter<Genre> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        View v = convertView;
+        View v = null;
 
-        if(v == null){
+        if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             if (inflater != null){
                 v = inflater.inflate(R.layout.genrelistitemdesign,null);
 
-                TextView title = v.findViewById(R.id.genreTitle);
-                ImageView image = v.findViewById(R.id.genreImg);
-
-                Genre genre = getItem(position);
-
-                if (genre != null){
-                    title.setText(genre.getTitle());
-                    image.setImageResource(genre.getImageId());
-                }
             }
+        } else {
+            v = convertView;
+        }
 
+        if (v != null) {
+            TextView title = v.findViewById(R.id.genreTitle);
+            ImageView image = v.findViewById(R.id.genreImg);
+
+            Genre genre = getItem(position);
+
+            if (genre != null){
+                title.setText(genre.getTitle());
+                image.setImageResource(genre.getImageId());
+            }
         }
         return v;
     }

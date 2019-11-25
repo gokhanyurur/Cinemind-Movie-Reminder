@@ -37,40 +37,44 @@ public class MovieListAdapter extends ArrayAdapter<Movie> {
      */
     public MovieListAdapter(Context context, List<Movie> objects){
         super(context, R.layout.movieobjlistitemdesign,objects);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        View v = convertView;
+        View v = null;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
 
-        if(v == null){
+        if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if (inflater != null){
                 v = inflater.inflate(R.layout.movieobjlistitemdesign,null);
+            }
+        } else {
+            v = convertView;
+        }
 
-                TextView title = v.findViewById(R.id.movieTitle);
-                TextView releaseDate = v.findViewById(R.id.inTheater);
-                ImageView image = v.findViewById(R.id.movieposter);
+        if (v != null) {
+            TextView title = v.findViewById(R.id.movieTitle);
+            TextView releaseDate = v.findViewById(R.id.inTheater);
+            ImageView image = v.findViewById(R.id.movieposter);
 
-                Movie movie = getItem(position);
+            Movie movie = getItem(position);
 
-                if (movie != null){
-                    title.setText(movie.getTitle());
-                    releaseDate.setText(movie.getReleaseDate());
+            if (movie != null){
+                title.setText(movie.getTitle());
+                releaseDate.setText(movie.getReleaseDate());
 
-                    String imgPath= PropertyReader.getProperty("movie.poster.prefix", context) + movie.getPosterPath();
+                String imgPath= PropertyReader.getProperty("movie.poster.prefix", context) + movie.getPosterPath();
 
-                    Picasso.with(context)
-                            .load(imgPath)
-                            .resize(500, 750)
-                            .into(image);
-                }
+                Picasso.with(context)
+                        .load(imgPath)
+                        .resize(500, 750)
+                        .into(image);
             }
         }
         return v;

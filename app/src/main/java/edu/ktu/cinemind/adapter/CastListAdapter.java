@@ -41,37 +41,42 @@ public class CastListAdapter extends ArrayAdapter<Cast> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        View v = convertView;
+        View v = null;
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
 
-        if (v == null){
+        if (convertView == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (inflater != null) {
                 v = inflater.inflate(R.layout.castcrewlistitemdesign,null);
+            }
+        } else {
+            v = convertView;
+        }
 
-                TextView name = v.findViewById(R.id.actorName);
-                TextView roleAs = v.findViewById(R.id.actorAs);
-                ImageView image = v.findViewById(R.id.actorImg);
+        if (v != null) {
 
-                Cast person = getItem(position);
+            TextView name = v.findViewById(R.id.actorName);
+            TextView roleAs = v.findViewById(R.id.actorAs);
+            ImageView image = v.findViewById(R.id.actorImg);
 
-                if (person != null) {
-                    name.setText(person.getName());
-                    roleAs.setText(person.getCharacter());
+            Cast person = getItem(position);
 
-                    String imgPath;
-                    if (person.getImagePath().equals("null")){
-                        imgPath = PropertyReader.getProperty("no.image.url", context);
-                    } else{
-                        imgPath = PropertyReader.getProperty("person.image.prefix", context) + person.getImagePath();
-                    }
-                    Glide.with(context)
-                            .load(imgPath)
-                            .into(image);
+            if (person != null) {
+                name.setText(person.getName());
+                roleAs.setText(person.getCharacter());
+
+                String imgPath;
+                if (person.getImagePath().equals("null")){
+                    imgPath = PropertyReader.getProperty("no.image.url", context);
+                } else{
+                    imgPath = PropertyReader.getProperty("person.image.prefix", context) + person.getImagePath();
                 }
+                Glide.with(context)
+                        .load(imgPath)
+                        .into(image);
             }
         }
         return v;
